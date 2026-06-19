@@ -1,9 +1,9 @@
 {
   "version": "2.0.0",
   "package": "@flyfish-group/file-viewer-workspace",
-  "generatedAt": "2026-06-19T17:45:53.708Z",
+  "generatedAt": "2026-06-19T17:49:05.812Z",
   "sourceBranch": "main",
-  "sourceCommit": "b677bc71",
+  "sourceCommit": "2fd29ce8",
   "corePackage": {
     "packageName": "@file-viewer/core",
     "visibility": "public-source",
@@ -31,6 +31,26 @@
     "@file-viewer/jquery": "2.0.0",
     "@file-viewer/svelte": "2.0.0"
   },
+  "metadataAssets": [
+    {
+      "name": "release-manifest.json",
+      "role": "release-manifest",
+      "required": true,
+      "description": "Release index for ecosystem packages, repositories, source policy and public artifacts."
+    },
+    {
+      "name": "release-status.json",
+      "role": "release-status",
+      "required": true,
+      "description": "Machine-readable channel status, remaining gaps and blocker classification."
+    },
+    {
+      "name": "release-status.schema.json",
+      "role": "release-status-schema",
+      "required": true,
+      "description": "JSON Schema for release-status.json."
+    }
+  ],
   "ecosystemArtifacts": [
     {
       "name": "@file-viewer/core",
