@@ -1,9 +1,9 @@
 {
   "version": "2.0.11",
   "package": "@flyfish-group/file-viewer-workspace",
-  "generatedAt": "2026-06-22T08:34:15.064Z",
+  "generatedAt": "2026-06-23T06:05:03.418Z",
   "sourceBranch": "main",
-  "sourceCommit": "780d2349",
+  "sourceCommit": "63f82674",
   "corePackage": {
     "packageName": "@file-viewer/core",
     "description": "Framework-neutral TypeScript file preview core with format registry, lifecycle APIs, search, zoom, print, export, and renderer orchestration.",
@@ -18,7 +18,34 @@
   },
   "ecosystemPackages": {
     "@file-viewer/core": "2.0.11",
+    "@file-viewer/renderer-pdf": "2.0.11",
+    "@file-viewer/renderer-ofd": "2.0.11",
+    "@file-viewer/renderer-presentation": "2.0.11",
+    "@file-viewer/renderer-word": "2.0.11",
+    "@file-viewer/renderer-spreadsheet": "2.0.11",
+    "@file-viewer/renderer-drawing": "2.0.11",
+    "@file-viewer/renderer-3d": "2.0.11",
+    "@file-viewer/renderer-mindmap": "2.0.11",
+    "@file-viewer/renderer-cad": "2.0.11",
+    "@file-viewer/renderer-typst": "2.0.11",
+    "@file-viewer/renderer-archive": "2.0.11",
+    "@file-viewer/renderer-email": "2.0.11",
+    "@file-viewer/renderer-ebook": "2.0.11",
+    "@file-viewer/renderer-text": "2.0.11",
+    "@file-viewer/renderer-image": "2.0.11",
+    "@file-viewer/renderer-media": "2.0.11",
+    "@file-viewer/renderer-geo": "2.0.11",
+    "@file-viewer/renderer-data": "2.0.11",
+    "@file-viewer/eda-layout": "2.0.11",
+    "@file-viewer/eda-orcad": "2.0.11",
+    "@file-viewer/geometry-engine": "2.0.11",
+    "@file-viewer/renderer-eda": "2.0.11",
     "@file-viewer/pptx": "2.0.11",
+    "@file-viewer/preset-all": "2.0.11",
+    "@file-viewer/preset-lite": "2.0.11",
+    "@file-viewer/preset-office": "2.0.11",
+    "@file-viewer/preset-engineering": "2.0.11",
+    "@file-viewer/vite-plugin": "2.0.11",
     "@flyfish-group/file-viewer3": "2.0.11",
     "file-viewer3": "2.0.11",
     "@flyfish-group/file-viewer": "2.0.11",
@@ -70,6 +97,404 @@
       "historicalPackages": []
     },
     {
+      "name": "@file-viewer/renderer-pdf",
+      "version": "2.0.11",
+      "kind": "renderer",
+      "framework": null,
+      "packageDir": "packages/renderers/pdf",
+      "tarball": "file-viewer-renderer-pdf-2.0.11.tgz",
+      "artifactIncluded": true,
+      "artifactDuplicateOf": null,
+      "artifactNote": null,
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-pdf",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-pdf",
+      "entryFormats": [
+        "esm",
+        "types"
+      ],
+      "historicalPackages": []
+    },
+    {
+      "name": "@file-viewer/renderer-ofd",
+      "version": "2.0.11",
+      "kind": "renderer",
+      "framework": null,
+      "packageDir": "packages/renderers/ofd",
+      "tarball": "file-viewer-renderer-ofd-2.0.11.tgz",
+      "artifactIncluded": true,
+      "artifactDuplicateOf": null,
+      "artifactNote": null,
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-ofd",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-ofd",
+      "entryFormats": [
+        "esm",
+        "types",
+        "vendor"
+      ],
+      "historicalPackages": []
+    },
+    {
+      "name": "@file-viewer/renderer-presentation",
+      "version": "2.0.11",
+      "kind": "renderer",
+      "framework": null,
+      "packageDir": "packages/renderers/presentation",
+      "tarball": "file-viewer-renderer-presentation-2.0.11.tgz",
+      "artifactIncluded": true,
+      "artifactDuplicateOf": null,
+      "artifactNote": null,
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-presentation",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-presentation",
+      "entryFormats": [
+        "esm",
+        "types"
+      ],
+      "historicalPackages": []
+    },
+    {
+      "name": "@file-viewer/renderer-word",
+      "version": "2.0.11",
+      "kind": "renderer",
+      "framework": null,
+      "packageDir": "packages/renderers/word",
+      "tarball": "file-viewer-renderer-word-2.0.11.tgz",
+      "artifactIncluded": true,
+      "artifactDuplicateOf": null,
+      "artifactNote": null,
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-word",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-word",
+      "entryFormats": [
+        "esm",
+        "types"
+      ],
+      "historicalPackages": []
+    },
+    {
+      "name": "@file-viewer/renderer-spreadsheet",
+      "version": "2.0.11",
+      "kind": "renderer",
+      "framework": null,
+      "packageDir": "packages/renderers/spreadsheet",
+      "tarball": "file-viewer-renderer-spreadsheet-2.0.11.tgz",
+      "artifactIncluded": true,
+      "artifactDuplicateOf": null,
+      "artifactNote": null,
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-spreadsheet",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-spreadsheet",
+      "entryFormats": [
+        "esm",
+        "types",
+        "worker"
+      ],
+      "historicalPackages": []
+    },
+    {
+      "name": "@file-viewer/renderer-drawing",
+      "version": "2.0.11",
+      "kind": "renderer",
+      "framework": null,
+      "packageDir": "packages/renderers/drawing",
+      "tarball": "file-viewer-renderer-drawing-2.0.11.tgz",
+      "artifactIncluded": true,
+      "artifactDuplicateOf": null,
+      "artifactNote": null,
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-drawing",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-drawing",
+      "entryFormats": [
+        "esm",
+        "types"
+      ],
+      "historicalPackages": []
+    },
+    {
+      "name": "@file-viewer/renderer-3d",
+      "version": "2.0.11",
+      "kind": "renderer",
+      "framework": null,
+      "packageDir": "packages/renderers/3d",
+      "tarball": "file-viewer-renderer-3d-2.0.11.tgz",
+      "artifactIncluded": true,
+      "artifactDuplicateOf": null,
+      "artifactNote": null,
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-3d",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-3d",
+      "entryFormats": [
+        "esm",
+        "types"
+      ],
+      "historicalPackages": []
+    },
+    {
+      "name": "@file-viewer/renderer-mindmap",
+      "version": "2.0.11",
+      "kind": "renderer",
+      "framework": null,
+      "packageDir": "packages/renderers/mindmap",
+      "tarball": "file-viewer-renderer-mindmap-2.0.11.tgz",
+      "artifactIncluded": true,
+      "artifactDuplicateOf": null,
+      "artifactNote": null,
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-mindmap",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-mindmap",
+      "entryFormats": [
+        "esm",
+        "types"
+      ],
+      "historicalPackages": []
+    },
+    {
+      "name": "@file-viewer/renderer-cad",
+      "version": "2.0.11",
+      "kind": "renderer",
+      "framework": null,
+      "packageDir": "packages/renderers/cad",
+      "tarball": "file-viewer-renderer-cad-2.0.11.tgz",
+      "artifactIncluded": true,
+      "artifactDuplicateOf": null,
+      "artifactNote": null,
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-cad",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-cad",
+      "entryFormats": [
+        "esm",
+        "types"
+      ],
+      "historicalPackages": []
+    },
+    {
+      "name": "@file-viewer/renderer-typst",
+      "version": "2.0.11",
+      "kind": "renderer",
+      "framework": null,
+      "packageDir": "packages/renderers/typst",
+      "tarball": "file-viewer-renderer-typst-2.0.11.tgz",
+      "artifactIncluded": true,
+      "artifactDuplicateOf": null,
+      "artifactNote": null,
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-typst",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-typst",
+      "entryFormats": [
+        "esm",
+        "types"
+      ],
+      "historicalPackages": []
+    },
+    {
+      "name": "@file-viewer/renderer-archive",
+      "version": "2.0.11",
+      "kind": "renderer",
+      "framework": null,
+      "packageDir": "packages/renderers/archive",
+      "tarball": "file-viewer-renderer-archive-2.0.11.tgz",
+      "artifactIncluded": true,
+      "artifactDuplicateOf": null,
+      "artifactNote": null,
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-archive",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-archive",
+      "entryFormats": [
+        "esm",
+        "types"
+      ],
+      "historicalPackages": []
+    },
+    {
+      "name": "@file-viewer/renderer-email",
+      "version": "2.0.11",
+      "kind": "renderer",
+      "framework": null,
+      "packageDir": "packages/renderers/email",
+      "tarball": "file-viewer-renderer-email-2.0.11.tgz",
+      "artifactIncluded": true,
+      "artifactDuplicateOf": null,
+      "artifactNote": null,
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-email",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-email",
+      "entryFormats": [
+        "esm",
+        "types"
+      ],
+      "historicalPackages": []
+    },
+    {
+      "name": "@file-viewer/renderer-ebook",
+      "version": "2.0.11",
+      "kind": "renderer",
+      "framework": null,
+      "packageDir": "packages/renderers/ebook",
+      "tarball": "file-viewer-renderer-ebook-2.0.11.tgz",
+      "artifactIncluded": true,
+      "artifactDuplicateOf": null,
+      "artifactNote": null,
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-ebook",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-ebook",
+      "entryFormats": [
+        "esm",
+        "types"
+      ],
+      "historicalPackages": []
+    },
+    {
+      "name": "@file-viewer/renderer-text",
+      "version": "2.0.11",
+      "kind": "renderer",
+      "framework": null,
+      "packageDir": "packages/renderers/text",
+      "tarball": "file-viewer-renderer-text-2.0.11.tgz",
+      "artifactIncluded": true,
+      "artifactDuplicateOf": null,
+      "artifactNote": null,
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-text",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-text",
+      "entryFormats": [
+        "esm",
+        "types"
+      ],
+      "historicalPackages": []
+    },
+    {
+      "name": "@file-viewer/renderer-image",
+      "version": "2.0.11",
+      "kind": "renderer",
+      "framework": null,
+      "packageDir": "packages/renderers/image",
+      "tarball": "file-viewer-renderer-image-2.0.11.tgz",
+      "artifactIncluded": true,
+      "artifactDuplicateOf": null,
+      "artifactNote": null,
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-image",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-image",
+      "entryFormats": [
+        "esm",
+        "types"
+      ],
+      "historicalPackages": []
+    },
+    {
+      "name": "@file-viewer/renderer-media",
+      "version": "2.0.11",
+      "kind": "renderer",
+      "framework": null,
+      "packageDir": "packages/renderers/media",
+      "tarball": "file-viewer-renderer-media-2.0.11.tgz",
+      "artifactIncluded": true,
+      "artifactDuplicateOf": null,
+      "artifactNote": null,
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-media",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-media",
+      "entryFormats": [
+        "esm",
+        "types"
+      ],
+      "historicalPackages": []
+    },
+    {
+      "name": "@file-viewer/renderer-geo",
+      "version": "2.0.11",
+      "kind": "renderer",
+      "framework": null,
+      "packageDir": "packages/renderers/geo",
+      "tarball": "file-viewer-renderer-geo-2.0.11.tgz",
+      "artifactIncluded": true,
+      "artifactDuplicateOf": null,
+      "artifactNote": null,
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-geo",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-geo",
+      "entryFormats": [
+        "esm",
+        "types"
+      ],
+      "historicalPackages": []
+    },
+    {
+      "name": "@file-viewer/renderer-data",
+      "version": "2.0.11",
+      "kind": "renderer",
+      "framework": null,
+      "packageDir": "packages/renderers/data",
+      "tarball": "file-viewer-renderer-data-2.0.11.tgz",
+      "artifactIncluded": true,
+      "artifactDuplicateOf": null,
+      "artifactNote": null,
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-data",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-data",
+      "entryFormats": [
+        "esm",
+        "types"
+      ],
+      "historicalPackages": []
+    },
+    {
+      "name": "@file-viewer/eda-layout",
+      "version": "2.0.11",
+      "kind": "renderer",
+      "framework": null,
+      "packageDir": "packages/renderers/eda-layout",
+      "tarball": "file-viewer-eda-layout-2.0.11.tgz",
+      "artifactIncluded": true,
+      "artifactDuplicateOf": null,
+      "artifactNote": null,
+      "github": "https://github.com/flyfish-dev/eda-layout",
+      "gitee": "https://gitee.com/flyfish-dev/eda-layout",
+      "entryFormats": [
+        "esm",
+        "types"
+      ],
+      "historicalPackages": []
+    },
+    {
+      "name": "@file-viewer/eda-orcad",
+      "version": "2.0.11",
+      "kind": "renderer",
+      "framework": null,
+      "packageDir": "packages/renderers/eda-orcad",
+      "tarball": "file-viewer-eda-orcad-2.0.11.tgz",
+      "artifactIncluded": true,
+      "artifactDuplicateOf": null,
+      "artifactNote": null,
+      "github": "https://github.com/flyfish-dev/eda-orcad",
+      "gitee": "https://gitee.com/flyfish-dev/eda-orcad",
+      "entryFormats": [
+        "esm",
+        "types"
+      ],
+      "historicalPackages": []
+    },
+    {
+      "name": "@file-viewer/geometry-engine",
+      "version": "2.0.11",
+      "kind": "renderer",
+      "framework": null,
+      "packageDir": "packages/renderers/geometry-engine",
+      "tarball": "file-viewer-geometry-engine-2.0.11.tgz",
+      "artifactIncluded": true,
+      "artifactDuplicateOf": null,
+      "artifactNote": null,
+      "github": "https://github.com/flyfish-dev/geometry-engine",
+      "gitee": "https://gitee.com/flyfish-dev/geometry-engine",
+      "entryFormats": [
+        "esm",
+        "types"
+      ],
+      "historicalPackages": []
+    },
+    {
+      "name": "@file-viewer/renderer-eda",
+      "version": "2.0.11",
+      "kind": "renderer",
+      "framework": null,
+      "packageDir": "packages/renderers/eda",
+      "tarball": "file-viewer-renderer-eda-2.0.11.tgz",
+      "artifactIncluded": true,
+      "artifactDuplicateOf": null,
+      "artifactNote": null,
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-eda",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-eda",
+      "entryFormats": [
+        "esm",
+        "types"
+      ],
+      "historicalPackages": []
+    },
+    {
       "name": "@file-viewer/pptx",
       "version": "2.0.11",
       "kind": "renderer",
@@ -86,6 +511,81 @@
         "types",
         "worker"
       ],
+      "historicalPackages": []
+    },
+    {
+      "name": "@file-viewer/preset-all",
+      "version": "2.0.11",
+      "kind": "preset",
+      "framework": null,
+      "packageDir": "packages/presets/all",
+      "tarball": "file-viewer-preset-all-2.0.11.tgz",
+      "artifactIncluded": true,
+      "artifactDuplicateOf": null,
+      "artifactNote": null,
+      "github": "https://github.com/flyfish-dev/file-viewer-preset-all",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-preset-all",
+      "entryFormats": [],
+      "historicalPackages": []
+    },
+    {
+      "name": "@file-viewer/preset-lite",
+      "version": "2.0.11",
+      "kind": "preset",
+      "framework": null,
+      "packageDir": "packages/presets/lite",
+      "tarball": "file-viewer-preset-lite-2.0.11.tgz",
+      "artifactIncluded": true,
+      "artifactDuplicateOf": null,
+      "artifactNote": null,
+      "github": "https://github.com/flyfish-dev/file-viewer-preset-lite",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-preset-lite",
+      "entryFormats": [],
+      "historicalPackages": []
+    },
+    {
+      "name": "@file-viewer/preset-office",
+      "version": "2.0.11",
+      "kind": "preset",
+      "framework": null,
+      "packageDir": "packages/presets/office",
+      "tarball": "file-viewer-preset-office-2.0.11.tgz",
+      "artifactIncluded": true,
+      "artifactDuplicateOf": null,
+      "artifactNote": null,
+      "github": "https://github.com/flyfish-dev/file-viewer-preset-office",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-preset-office",
+      "entryFormats": [],
+      "historicalPackages": []
+    },
+    {
+      "name": "@file-viewer/preset-engineering",
+      "version": "2.0.11",
+      "kind": "preset",
+      "framework": null,
+      "packageDir": "packages/presets/engineering",
+      "tarball": "file-viewer-preset-engineering-2.0.11.tgz",
+      "artifactIncluded": true,
+      "artifactDuplicateOf": null,
+      "artifactNote": null,
+      "github": "https://github.com/flyfish-dev/file-viewer-preset-engineering",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-preset-engineering",
+      "entryFormats": [],
+      "historicalPackages": []
+    },
+    {
+      "name": "@file-viewer/vite-plugin",
+      "version": "2.0.11",
+      "kind": "preset",
+      "framework": null,
+      "packageDir": "packages/presets/vite-plugin",
+      "tarball": "file-viewer-vite-plugin-2.0.11.tgz",
+      "artifactIncluded": true,
+      "artifactDuplicateOf": null,
+      "artifactNote": null,
+      "github": "https://github.com/flyfish-dev/file-viewer-vite-plugin",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-vite-plugin",
+      "entryFormats": [],
       "historicalPackages": []
     },
     {
@@ -322,6 +822,228 @@
     }
   ],
   "rendererRepositories": [
+    {
+      "packageName": "@file-viewer/renderer-pdf",
+      "repository": "file-viewer-renderer-pdf",
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-pdf",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-pdf",
+      "entryFormats": [
+        "esm",
+        "types"
+      ]
+    },
+    {
+      "packageName": "@file-viewer/renderer-ofd",
+      "repository": "file-viewer-renderer-ofd",
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-ofd",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-ofd",
+      "entryFormats": [
+        "esm",
+        "types",
+        "vendor"
+      ]
+    },
+    {
+      "packageName": "@file-viewer/renderer-presentation",
+      "repository": "file-viewer-renderer-presentation",
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-presentation",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-presentation",
+      "entryFormats": [
+        "esm",
+        "types"
+      ]
+    },
+    {
+      "packageName": "@file-viewer/renderer-word",
+      "repository": "file-viewer-renderer-word",
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-word",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-word",
+      "entryFormats": [
+        "esm",
+        "types"
+      ]
+    },
+    {
+      "packageName": "@file-viewer/renderer-spreadsheet",
+      "repository": "file-viewer-renderer-spreadsheet",
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-spreadsheet",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-spreadsheet",
+      "entryFormats": [
+        "esm",
+        "types",
+        "worker"
+      ]
+    },
+    {
+      "packageName": "@file-viewer/renderer-drawing",
+      "repository": "file-viewer-renderer-drawing",
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-drawing",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-drawing",
+      "entryFormats": [
+        "esm",
+        "types"
+      ]
+    },
+    {
+      "packageName": "@file-viewer/renderer-3d",
+      "repository": "file-viewer-renderer-3d",
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-3d",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-3d",
+      "entryFormats": [
+        "esm",
+        "types"
+      ]
+    },
+    {
+      "packageName": "@file-viewer/renderer-mindmap",
+      "repository": "file-viewer-renderer-mindmap",
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-mindmap",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-mindmap",
+      "entryFormats": [
+        "esm",
+        "types"
+      ]
+    },
+    {
+      "packageName": "@file-viewer/renderer-cad",
+      "repository": "file-viewer-renderer-cad",
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-cad",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-cad",
+      "entryFormats": [
+        "esm",
+        "types"
+      ]
+    },
+    {
+      "packageName": "@file-viewer/renderer-typst",
+      "repository": "file-viewer-renderer-typst",
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-typst",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-typst",
+      "entryFormats": [
+        "esm",
+        "types"
+      ]
+    },
+    {
+      "packageName": "@file-viewer/renderer-archive",
+      "repository": "file-viewer-renderer-archive",
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-archive",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-archive",
+      "entryFormats": [
+        "esm",
+        "types"
+      ]
+    },
+    {
+      "packageName": "@file-viewer/renderer-email",
+      "repository": "file-viewer-renderer-email",
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-email",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-email",
+      "entryFormats": [
+        "esm",
+        "types"
+      ]
+    },
+    {
+      "packageName": "@file-viewer/renderer-ebook",
+      "repository": "file-viewer-renderer-ebook",
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-ebook",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-ebook",
+      "entryFormats": [
+        "esm",
+        "types"
+      ]
+    },
+    {
+      "packageName": "@file-viewer/renderer-text",
+      "repository": "file-viewer-renderer-text",
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-text",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-text",
+      "entryFormats": [
+        "esm",
+        "types"
+      ]
+    },
+    {
+      "packageName": "@file-viewer/renderer-image",
+      "repository": "file-viewer-renderer-image",
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-image",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-image",
+      "entryFormats": [
+        "esm",
+        "types"
+      ]
+    },
+    {
+      "packageName": "@file-viewer/renderer-media",
+      "repository": "file-viewer-renderer-media",
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-media",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-media",
+      "entryFormats": [
+        "esm",
+        "types"
+      ]
+    },
+    {
+      "packageName": "@file-viewer/renderer-geo",
+      "repository": "file-viewer-renderer-geo",
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-geo",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-geo",
+      "entryFormats": [
+        "esm",
+        "types"
+      ]
+    },
+    {
+      "packageName": "@file-viewer/renderer-data",
+      "repository": "file-viewer-renderer-data",
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-data",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-data",
+      "entryFormats": [
+        "esm",
+        "types"
+      ]
+    },
+    {
+      "packageName": "@file-viewer/eda-layout",
+      "repository": "eda-layout",
+      "github": "https://github.com/flyfish-dev/eda-layout",
+      "gitee": "https://gitee.com/flyfish-dev/eda-layout",
+      "entryFormats": [
+        "esm",
+        "types"
+      ]
+    },
+    {
+      "packageName": "@file-viewer/eda-orcad",
+      "repository": "eda-orcad",
+      "github": "https://github.com/flyfish-dev/eda-orcad",
+      "gitee": "https://gitee.com/flyfish-dev/eda-orcad",
+      "entryFormats": [
+        "esm",
+        "types"
+      ]
+    },
+    {
+      "packageName": "@file-viewer/geometry-engine",
+      "repository": "geometry-engine",
+      "github": "https://github.com/flyfish-dev/geometry-engine",
+      "gitee": "https://gitee.com/flyfish-dev/geometry-engine",
+      "entryFormats": [
+        "esm",
+        "types"
+      ]
+    },
+    {
+      "packageName": "@file-viewer/renderer-eda",
+      "repository": "file-viewer-renderer-eda",
+      "github": "https://github.com/flyfish-dev/file-viewer-renderer-eda",
+      "gitee": "https://gitee.com/flyfish-dev/file-viewer-renderer-eda",
+      "entryFormats": [
+        "esm",
+        "types"
+      ]
+    },
     {
       "packageName": "@file-viewer/pptx",
       "repository": "pptxjs",
