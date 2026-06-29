@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-06-29T07:18:07.391Z",
+  "generatedAt": "2026-06-29T10:16:28.004Z",
   "version": "2.1.13",
   "sourcePolicy": "private-complete-original-workspace",
   "openSourcePolicy": "public-open-source-main-repository",
@@ -8,23 +8,23 @@
     "repository": "https://git.flyfish.dev/flyfish-group/file-viewer.git",
     "branch": "main",
     "policy": "private-complete-original-workspace",
-    "authoritativeCommit": "8b2bdd1c081fa0fc6d1049a4d2d02ca89e9471f7",
+    "authoritativeCommit": "a15cfbb2bf470b95d97777351707c4b1424ceb41",
     "localBranch": "main",
-    "localCommit": "8b2bdd1c081fa0fc6d1049a4d2d02ca89e9471f7",
+    "localCommit": "a15cfbb2bf470b95d97777351707c4b1424ceb41",
     "inSync": true,
     "note": "Private Gitea main is the complete original aggregate workspace. The local checkout branch is only the execution context and can be transitional during branch cutover."
   },
   "local": {
     "branch": "main",
-    "commit": "8b2bdd1c081fa0fc6d1049a4d2d02ca89e9471f7",
-    "shortCommit": "8b2bdd1c",
+    "commit": "a15cfbb2bf470b95d97777351707c4b1424ceb41",
+    "shortCommit": "a15cfbb2",
     "dirty": false
   },
   "sourceRemote": {
     "url": "https://git.flyfish.dev/flyfish-group/file-viewer.git",
     "branch": "main",
     "ok": true,
-    "hash": "8b2bdd1c081fa0fc6d1049a4d2d02ca89e9471f7",
+    "hash": "a15cfbb2bf470b95d97777351707c4b1424ceb41",
     "error": ""
   },
   "openSourceMain": {
@@ -32,7 +32,7 @@
       "url": "https://github.com/flyfish-dev/file-viewer",
       "branch": "main",
       "ok": true,
-      "hash": "ac751d645f1106dea62fd5a54966d800b20a337b",
+      "hash": "bfc2c6caeca1c39baca8c229b9d5d6895907ef83",
       "error": ""
     },
     "gitee": {
@@ -45,7 +45,7 @@
     "inSync": false,
     "syncMode": "stale",
     "treeChecked": true,
-    "referenceTree": "aaa200536e8305072daba2ff81d26ff81398b8b9",
+    "referenceTree": "ce8f78d231f49a7b3e4c61ebbe9162ec24ddf486",
     "giteeTree": "ef9e54e70ed3110034a0103cb80e8fee613104c3",
     "treeError": "",
     "reportHashNote": "The open-source main repository mirrors the current public source tree and records the private source commit in the public commit body for traceability. The observed remote hash can trail until that mirror commit is pushed. Gitee can intentionally use a shallow snapshot commit; inSync is true when the file tree matches even if commit hashes differ. Use pnpm audit:ecosystem-status for live remote heads."
@@ -76,7 +76,7 @@
         "branch": "main",
         "ok": false,
         "hash": "",
-        "error": "fatal: could not read Username for 'https://gitee.com': terminal prompts disabled"
+        "error": "remote: [session-id] 404 not found!\nfatal: repository 'https://gitee.com/flyfish-dev/file-viewer-core/' not found"
       }
     },
     {
@@ -94,7 +94,7 @@
         "branch": "main",
         "ok": false,
         "hash": "",
-        "error": "fatal: could not read Username for 'https://gitee.com': terminal prompts disabled"
+        "error": "remote: [session-id] 404 not found!\nfatal: repository 'https://gitee.com/flyfish-dev/file-viewer-web/' not found"
       }
     },
     {
@@ -112,7 +112,7 @@
         "branch": "main",
         "ok": false,
         "hash": "",
-        "error": "fatal: could not read Username for 'https://gitee.com': terminal prompts disabled"
+        "error": "remote: [session-id] 404 not found!\nfatal: repository 'https://gitee.com/flyfish-dev/file-viewer-web-full/' not found"
       }
     },
     {
@@ -130,7 +130,7 @@
         "branch": "main",
         "ok": false,
         "hash": "",
-        "error": "fatal: could not read Username for 'https://gitee.com': terminal prompts disabled"
+        "error": "remote: [session-id] 404 not found!\nfatal: repository 'https://gitee.com/flyfish-dev/file-viewer-vue3/' not found"
       }
     },
     {
@@ -148,7 +148,7 @@
         "branch": "main",
         "ok": false,
         "hash": "",
-        "error": "fatal: could not read Username for 'https://gitee.com': terminal prompts disabled"
+        "error": "remote: [session-id] 404 not found!\nfatal: repository 'https://gitee.com/flyfish-dev/file-viewer-vue3-full/' not found"
       }
     },
     {
@@ -166,7 +166,7 @@
         "branch": "main",
         "ok": false,
         "hash": "",
-        "error": "fatal: could not read Username for 'https://gitee.com': terminal prompts disabled"
+        "error": "remote: [session-id] 404 not found!\nfatal: repository 'https://gitee.com/flyfish-dev/file-viewer-vue2.7/' not found"
       }
     },
     {
@@ -184,7 +184,7 @@
         "branch": "main",
         "ok": false,
         "hash": "",
-        "error": "fatal: could not read Username for 'https://gitee.com': terminal prompts disabled"
+        "error": "remote: [session-id] 404 not found!\nfatal: repository 'https://gitee.com/flyfish-dev/file-viewer-vue2.7-full/' not found"
       }
     },
     {
@@ -202,7 +202,7 @@
         "branch": "main",
         "ok": false,
         "hash": "",
-        "error": "fatal: could not read Username for 'https://gitee.com': terminal prompts disabled"
+        "error": "remote: [session-id] 404 not found!\nfatal: repository 'https://gitee.com/flyfish-dev/file-viewer-vue2.6/' not found"
       }
     },
     {
@@ -220,7 +220,7 @@
         "branch": "main",
         "ok": false,
         "hash": "",
-        "error": "fatal: could not read Username for 'https://gitee.com': terminal prompts disabled"
+        "error": "remote: [session-id] 404 not found!\nfatal: repository 'https://gitee.com/flyfish-dev/file-viewer-vue2.6-full/' not found"
       }
     },
     {
@@ -238,7 +238,7 @@
         "branch": "main",
         "ok": false,
         "hash": "",
-        "error": "fatal: could not read Username for 'https://gitee.com': terminal prompts disabled"
+        "error": "remote: [session-id] 404 not found!\nfatal: repository 'https://gitee.com/flyfish-dev/file-viewer-react/' not found"
       }
     },
     {
@@ -256,7 +256,7 @@
         "branch": "main",
         "ok": false,
         "hash": "",
-        "error": "fatal: could not read Username for 'https://gitee.com': terminal prompts disabled"
+        "error": "remote: [session-id] 404 not found!\nfatal: repository 'https://gitee.com/flyfish-dev/file-viewer-react-full/' not found"
       }
     },
     {
@@ -274,7 +274,7 @@
         "branch": "main",
         "ok": false,
         "hash": "",
-        "error": "fatal: could not read Username for 'https://gitee.com': terminal prompts disabled"
+        "error": "remote: [session-id] 404 not found!\nfatal: repository 'https://gitee.com/flyfish-dev/file-viewer-react-legacy/' not found"
       }
     },
     {
@@ -292,7 +292,7 @@
         "branch": "main",
         "ok": false,
         "hash": "",
-        "error": "fatal: could not read Username for 'https://gitee.com': terminal prompts disabled"
+        "error": "remote: [session-id] 404 not found!\nfatal: repository 'https://gitee.com/flyfish-dev/file-viewer-react-legacy-full/' not found"
       }
     },
     {
@@ -310,7 +310,7 @@
         "branch": "main",
         "ok": false,
         "hash": "",
-        "error": "fatal: could not read Username for 'https://gitee.com': terminal prompts disabled"
+        "error": "remote: [session-id] 404 not found!\nfatal: repository 'https://gitee.com/flyfish-dev/file-viewer-jquery/' not found"
       }
     },
     {
@@ -328,7 +328,7 @@
         "branch": "main",
         "ok": false,
         "hash": "",
-        "error": "fatal: could not read Username for 'https://gitee.com': terminal prompts disabled"
+        "error": "remote: [session-id] 404 not found!\nfatal: repository 'https://gitee.com/flyfish-dev/file-viewer-jquery-full/' not found"
       }
     },
     {
@@ -346,7 +346,7 @@
         "branch": "main",
         "ok": false,
         "hash": "",
-        "error": "fatal: could not read Username for 'https://gitee.com': terminal prompts disabled"
+        "error": "remote: [session-id] 404 not found!\nfatal: repository 'https://gitee.com/flyfish-dev/file-viewer-svelte/' not found"
       }
     },
     {
@@ -364,7 +364,7 @@
         "branch": "main",
         "ok": false,
         "hash": "",
-        "error": "fatal: could not read Username for 'https://gitee.com': terminal prompts disabled"
+        "error": "remote: [session-id] 404 not found!\nfatal: repository 'https://gitee.com/flyfish-dev/file-viewer-svelte-full/' not found"
       }
     }
   ],
