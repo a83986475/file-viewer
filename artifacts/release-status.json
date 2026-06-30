@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-06-30T08:02:52.140Z",
+  "generatedAt": "2026-06-30T08:04:51.629Z",
   "version": "2.1.14",
   "sourcePolicy": "private-complete-original-workspace",
   "openSourcePolicy": "public-open-source-main-repository",
@@ -32,7 +32,7 @@
       "url": "https://github.com/flyfish-dev/file-viewer",
       "branch": "main",
       "ok": true,
-      "hash": "79d9e98f8fe2b3c92bcff8312cb4719a02fb2bee",
+      "hash": "30bf61474fd2c754ef0961dc8883ef1c8b6f4553",
       "error": ""
     },
     "gitee": {
@@ -45,20 +45,20 @@
     "inSync": false,
     "syncMode": "stale",
     "treeChecked": true,
-    "referenceTree": "c5e8e3e02af8fed1a1e64188fb2ddc876c96ab7a",
+    "referenceTree": "449fd914dc37ddcfcc34012f872ffbaa24a78efa",
     "giteeTree": "ef9e54e70ed3110034a0103cb80e8fee613104c3",
     "treeError": "",
     "reportHashNote": "The open-source main repository mirrors the current public source tree and records the private source commit in the public commit body for traceability. The observed remote hash can trail until that mirror commit is pushed. Gitee can intentionally use a shallow snapshot commit; inSync is true when the file tree matches even if commit hashes differ. Use pnpm audit:ecosystem-status for live remote heads."
   },
   "githubRelease": {
-    "ok": false,
+    "ok": true,
     "tag": "v2.1.14",
-    "url": "",
-    "assetCount": 0,
-    "hasManifest": false,
-    "hasStatus": false,
-    "hasSchema": false,
-    "error": "release not found"
+    "url": "https://github.com/flyfish-dev/file-viewer/releases/tag/v2.1.14",
+    "assetCount": 55,
+    "hasManifest": true,
+    "hasStatus": true,
+    "hasSchema": true,
+    "error": ""
   },
   "componentRepositories": [
     {
@@ -735,19 +735,16 @@
     }
   ],
   "gaps": [
-    "source remote https://git.flyfish.dev/flyfish-group/file-viewer.git missing main",
-    "GitHub Release v2.1.14 missing"
+    "source remote https://git.flyfish.dev/flyfish-group/file-viewer.git missing main"
   ],
   "gapSummary": {
-    "total": 2,
-    "externalBlockers": 2,
+    "total": 1,
+    "externalBlockers": 1,
     "localActionable": 0,
     "byChannel": {
-      "source-remote": 1,
-      "github-release": 1
+      "source-remote": 1
     },
     "externalBlockerChannels": [
-      "github-release",
       "source-remote"
     ],
     "localActionableChannels": []
@@ -760,17 +757,7 @@
       "externalBlocker": true,
       "message": "source remote https://git.flyfish.dev/flyfish-group/file-viewer.git missing main",
       "nextAction": "Restore the private Gitea source branch or push the expected release source."
-    },
-    {
-      "id": "github-release-github-release-v2.1.14-missing",
-      "channel": "github-release",
-      "scope": "release-assets",
-      "externalBlocker": true,
-      "message": "GitHub Release v2.1.14 missing",
-      "nextAction": "Upload the missing GitHub Release metadata or artifact and rerun verify:github-release-assets."
     }
   ],
-  "nextActions": [
-    "Create or update the GitHub Release assets, then rerun `pnpm release:public`."
-  ]
+  "nextActions": []
 }
