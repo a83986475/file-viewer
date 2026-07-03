@@ -6,8 +6,11 @@ import {
   createFileViewerZoomChangeEmitter as createZoomChangeEmitter,
   formatCssPixels,
   registerFileViewerZoomProvider,
+  resolveFileViewerFitScale,
   unregisterFileViewerZoomProvider,
   type FileRenderContext,
+  type FileViewerFitRequest,
+  type FileViewerFitResult,
   type FileViewerRenderedInstance as AppWrapper,
   type FileViewerZoomState,
 } from '@file-viewer/core'
@@ -284,12 +287,61 @@ function makeMsDocResponsive(target: HTMLDivElement) {
     return getZoomState()
   }
 
+  const setAbsoluteScale = (scale: number) => {
+    return setUserZoom(scale / Math.max(currentFitScale, 0.01))
+  }
+
+  const readFitPageSize = () => {
+    const root = pages[0]?.querySelector<HTMLElement>('.msdoc-root')
+    return {
+      width: root?.offsetWidth || MSDOC_PAGE_SIZE.width,
+      height: MSDOC_PAGE_SIZE.height
+    }
+  }
+
+  const fitDoc = (request: FileViewerFitRequest): FileViewerFitResult => {
+    const pageSize = readFitPageSize()
+    const mode = request.mode === 'auto' ? 'width' : request.mode
+    const scale = resolveFileViewerFitScale({
+      mode,
+      viewportWidth: Math.max(1, request.viewportWidth || target.clientWidth || 0),
+      viewportHeight: Math.max(1, request.viewportHeight || target.clientHeight || 0),
+      contentWidth: pageSize.width,
+      contentHeight: pageSize.height,
+      currentScale,
+      minScale: request.minScale ?? MSDOC_MIN_SCALE,
+      maxScale: request.maxScale ?? MSDOC_MAX_SCALE
+    })
+
+    if (!scale) {
+      return {
+        applied: false,
+        mode: request.mode,
+        resize: request.resize,
+        source: request.source,
+        reason: 'unmeasurable',
+        provider: 'zoom'
+      }
+    }
+
+    const state = setAbsoluteScale(scale)
+    return {
+      applied: true,
+      mode: request.mode,
+      resize: request.resize,
+      scale: state.scale,
+      source: request.source,
+      provider: 'zoom'
+    }
+  }
+
   target.dataset.viewerZoomProvider = 'doc'
   registerFileViewerZoomProvider(target, {
     zoomIn: () => setUserZoom((currentScale + MSDOC_ZOOM_STEP) / Math.max(currentFitScale, 0.01)),
     zoomOut: () => setUserZoom((currentScale - MSDOC_ZOOM_STEP) / Math.max(currentFitScale, 0.01)),
     resetZoom: () => setUserZoom(1),
-    setZoom: scale => setUserZoom(scale / Math.max(currentFitScale, 0.01)),
+    setZoom: setAbsoluteScale,
+    fit: fitDoc,
     getState: getZoomState,
     subscribe: zoomEmitter.subscribe
   })

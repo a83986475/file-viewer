@@ -12,8 +12,11 @@ import {
   formatCssPixels,
   getElementPrintPageSize,
   registerFileViewerZoomProvider,
+  resolveFileViewerFitScale,
   unregisterFileViewerZoomProvider,
   type FileRenderContext,
+  type FileViewerFitRequest,
+  type FileViewerFitResult,
   type FileViewerDocxOptions,
   type FileViewerRenderedInstance as AppWrapper,
   type FileViewerZoomState,
@@ -352,12 +355,81 @@ function makeDocxResponsive(target: HTMLDivElement, context?: FileRenderContext)
     return getZoomState()
   }
 
+  const setAbsoluteScale = (scale: number) => {
+    return setUserZoom(scale / Math.max(currentFitScale, 0.01))
+  }
+
+  const readFitPageSize = (): PrintPageSize | null => {
+    for (const frame of frames) {
+      const page = getDocxPageElement(frame)
+      if (!page) {
+        continue
+      }
+      const pageSize = getElementPrintPageSize(page, DOCX_DEFAULT_PAGE_SIZE)
+      return {
+        width: page.offsetWidth || pageSize.width || DOCX_DEFAULT_PAGE_SIZE.width,
+        height: isDocxFlowFrame(frame)
+          ? DOCX_DEFAULT_PAGE_SIZE.height
+          : page.offsetHeight || pageSize.height || DOCX_DEFAULT_PAGE_SIZE.height
+      }
+    }
+    return null
+  }
+
+  const fitDocx = (request: FileViewerFitRequest): FileViewerFitResult => {
+    const pageSize = readFitPageSize()
+    if (!pageSize) {
+      return {
+        applied: false,
+        mode: request.mode,
+        resize: request.resize,
+        source: request.source,
+        reason: 'unmeasurable',
+        provider: 'zoom'
+      }
+    }
+
+    const mode = request.mode === 'auto' ? 'width' : request.mode
+    const scale = resolveFileViewerFitScale({
+      mode,
+      viewportWidth: Math.max(1, request.viewportWidth || target.clientWidth || 0),
+      viewportHeight: Math.max(1, request.viewportHeight || target.clientHeight || 0),
+      contentWidth: pageSize.width,
+      contentHeight: pageSize.height,
+      currentScale,
+      minScale: request.minScale ?? DOCX_MIN_SCALE,
+      maxScale: request.maxScale ?? DOCX_MAX_SCALE
+    })
+
+    if (!scale) {
+      return {
+        applied: false,
+        mode: request.mode,
+        resize: request.resize,
+        source: request.source,
+        reason: 'unmeasurable',
+        provider: 'zoom'
+      }
+    }
+
+    const state = setAbsoluteScale(scale)
+    return {
+      applied: true,
+      mode: request.mode,
+      resize: request.resize,
+      scale: state.scale,
+      source: request.source,
+      provider: 'zoom'
+    }
+  }
+
   target.dataset.viewerZoomProvider = 'docx'
   registerFileViewerZoomProvider(target, {
     zoomIn: () => setUserZoom((currentScale + DOCX_ZOOM_STEP) / Math.max(currentFitScale, 0.01)),
     zoomOut: () => setUserZoom((currentScale - DOCX_ZOOM_STEP) / Math.max(currentFitScale, 0.01)),
     resetZoom: () => setUserZoom(1),
-    setZoom: scale => setUserZoom(scale / Math.max(currentFitScale, 0.01)),
+    setZoom: setAbsoluteScale,
+    fit: fitDocx,
     getState: getZoomState,
     subscribe: zoomEmitter.subscribe
   })

@@ -2,6 +2,13 @@
 
 这份日志记录的是当前仓库主线中，对外最值得说明的能力演进。
 
+## `v2.1.19` fit 适配与 Shadow DOM provider 补强
+
+- 在 `v2.1.18` 离线资产发布基础上继续推进全仓版本到 `2.1.19`，确保最新源码、npm 包、公开仓、Release 资产和文档矩阵保持同一发布口径。
+- core 的搜索、缩放和视图状态 provider 查找支持穿透 open ShadowRoot，Web Component / Shadow DOM 隔离模式下的工具栏、fit 和状态同步不再丢失内部 renderer provider。
+- 图片、DOC 和 DOCX renderer 接入专属 fit provider，`fit:'width'`、`contain`、`scale-down` 等模式会基于真实图片尺寸或文档页面尺寸计算绝对缩放；图片未加载和文档暂不可测时会自动重试。
+- 新增 ShadowRoot provider 回归测试，覆盖 provider 注册、查找和注销链路，避免样式隔离/组件封装后核心操作能力退化。
+
 ## `v2.1.18` 离线资产、本地化发布与 DOCX 引擎更新
 
 - 全仓版本、workspace 依赖和 release matrix 推进到 `2.1.18`；当前矩阵覆盖 52 个 npm 发布目标、16 个组件目标、27 条 smoke 渲染链、24 个 renderer pipeline、206 个扩展名和 432 个组件渲染目标。
