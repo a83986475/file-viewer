@@ -134,6 +134,12 @@ type NavItem = {
   label: string
 }
 
+type HeroSceneController = {
+  start: () => void
+  stop: () => void
+  dispose: () => void
+}
+
 const docsUrl = 'https://doc.file-viewer.app/'
 const docsQuickstartUrl = `${docsUrl}guide/quickstart`
 const demoUrl = 'https://demo.file-viewer.app/'
@@ -156,14 +162,18 @@ hljs.registerLanguage('xml', xml)
 const locale = ref<Locale>('zh')
 const localeStorageKey = 'flyfish-file-viewer-site-locale'
 const topbar = ref<HTMLElement | null>(null)
+const heroStage = ref<HTMLElement | null>(null)
 const heroCanvas = ref<HTMLCanvasElement | null>(null)
 const demoReveal = ref<HTMLElement | null>(null)
+const docsFrame = ref<HTMLElement | null>(null)
 const quickStartSection = ref<HTMLElement | null>(null)
 const quickStartTrack = ref<HTMLElement | null>(null)
 const isTopbarPinned = ref(false)
 const activeSectionId = ref<SectionId>('top')
+const heroCanvasReady = ref(false)
 const demoRevealActive = ref(false)
-const demoFrameLoaded = ref(false)
+const demoFrameMounted = ref(false)
+const docsFrameMounted = ref(false)
 const quickStartSectionActive = ref(false)
 const activeQuickStartIndex = ref(0)
 const githubStarCount = ref(githubStarCountFallback)
@@ -1119,6 +1129,19 @@ function prefersReducedMotion() {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches
 }
 
+function supportsWebGLRendering() {
+  try {
+    const canvas = document.createElement('canvas')
+    return Boolean(canvas.getContext('webgl2') || canvas.getContext('webgl'))
+  } catch {
+    return false
+  }
+}
+
+function shouldUseHeroWebGL() {
+  return supportsWebGLRendering()
+}
+
 function getTopbarScrollOffset() {
   const rect = topbar.value?.getBoundingClientRect()
   const height = rect?.height ?? 72
@@ -1222,17 +1245,24 @@ function disposeScene(scene: Scene, renderer: WebGLRenderer) {
   renderer.dispose()
 }
 
-async function initHeroScene() {
-  const THREE = await import('three')
+async function initHeroScene(): Promise<HeroSceneController> {
   const canvas = heroCanvas.value
-  const stage = canvas?.parentElement
-  if (!canvas || !stage) return () => {}
+  const stage = heroStage.value || canvas?.parentElement
+  if (!canvas || !stage) {
+    return {
+      start: () => {},
+      stop: () => {},
+      dispose: () => {}
+    }
+  }
+
+  const THREE = await import('three')
 
   const renderer = new THREE.WebGLRenderer({
     canvas,
     alpha: true,
     antialias: true,
-    powerPreference: 'high-performance'
+    powerPreference: 'low-power'
   })
   renderer.outputColorSpace = THREE.SRGBColorSpace
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2))
@@ -1276,7 +1306,6 @@ async function initHeroScene() {
     rig.add(edge)
   }
 
-  const panelMaterial = new THREE.MeshStandardMaterial({ color: 0x10243a, roughness: 0.42, metalness: 0.18 })
   const glowMaterial = new THREE.MeshBasicMaterial({ color: 0x25d692, transparent: true, opacity: 0.58 })
   const cyanMaterial = new THREE.MeshBasicMaterial({ color: 0x37d6f3, transparent: true, opacity: 0.62 })
   const violetMaterial = new THREE.MeshBasicMaterial({ color: 0x8b7cf6, transparent: true, opacity: 0.52 })
@@ -1355,6 +1384,8 @@ async function initHeroScene() {
   scene.add(particleField)
 
   let frameId = 0
+  let isRunning = false
+  let isDisposed = false
   const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
 
   const resize = () => {
@@ -1363,13 +1394,15 @@ async function initHeroScene() {
     renderer.setSize(width, height, false)
     camera.aspect = width / height
     camera.updateProjectionMatrix()
+    if (!isRunning && !isDisposed) {
+      renderFrame(performance.now())
+    }
   }
 
   const resizeObserver = new ResizeObserver(resize)
   resizeObserver.observe(stage)
-  resize()
 
-  const animate = (time: number) => {
+  const renderFrame = (time: number) => {
     const speed = motionQuery.matches ? 0.16 : 1
     const elapsed = time * 0.001 * speed
     rig.rotation.y = Math.sin(elapsed * 0.45) * 0.12
@@ -1390,23 +1423,142 @@ async function initHeroScene() {
     })
 
     renderer.render(scene, camera)
+  }
+
+  const animate = (time: number) => {
+    if (!isRunning || isDisposed) {
+      return
+    }
+
+    renderFrame(time)
     frameId = window.requestAnimationFrame(animate)
   }
 
-  frameId = window.requestAnimationFrame(animate)
+  const start = () => {
+    if (isRunning || isDisposed) {
+      return
+    }
+    isRunning = true
+    frameId = window.requestAnimationFrame(animate)
+  }
 
-  return () => {
+  const stop = () => {
+    isRunning = false
     window.cancelAnimationFrame(frameId)
-    resizeObserver.disconnect()
-    disposeScene(scene, renderer)
+    frameId = 0
+  }
+
+  resize()
+  renderFrame(performance.now())
+  heroCanvasReady.value = true
+
+  return {
+    start,
+    stop,
+    dispose: () => {
+      isDisposed = true
+      stop()
+      resizeObserver.disconnect()
+      disposeScene(scene, renderer)
+      renderer.forceContextLoss()
+      heroCanvasReady.value = false
+    }
   }
 }
 
-let disposeHeroScene: (() => void) | undefined
+let heroSceneController: HeroSceneController | undefined
+let heroSceneInitPromise: Promise<void> | undefined
 let heroSceneDisposed = false
+let heroSceneInView = false
+let heroVisibilityObserver: IntersectionObserver | undefined
 let demoRevealObserver: IntersectionObserver | undefined
+let docsFrameObserver: IntersectionObserver | undefined
 let quickStartObserver: IntersectionObserver | undefined
 let topbarResizeObserver: ResizeObserver | undefined
+let demoFrameUnmountTimer: number | undefined
+let docsFrameUnmountTimer: number | undefined
+
+async function ensureHeroScene() {
+  if (heroSceneController || heroSceneInitPromise || heroSceneDisposed || !shouldUseHeroWebGL()) {
+    return
+  }
+
+  heroSceneInitPromise = initHeroScene()
+    .then((controller) => {
+      heroSceneInitPromise = undefined
+      if (heroSceneDisposed) {
+        controller.dispose()
+        return
+      }
+      heroSceneController = controller
+      syncHeroScenePlayback()
+    })
+    .catch(() => {
+      heroSceneInitPromise = undefined
+      heroCanvasReady.value = false
+    })
+  await heroSceneInitPromise
+}
+
+function syncHeroScenePlayback() {
+  if (!heroSceneController) {
+    return
+  }
+
+  if (heroSceneInView && document.visibilityState === 'visible') {
+    heroSceneController.start()
+  } else {
+    heroSceneController.stop()
+  }
+}
+
+function clearFrameUnmountTimers() {
+  if (demoFrameUnmountTimer) {
+    window.clearTimeout(demoFrameUnmountTimer)
+    demoFrameUnmountTimer = undefined
+  }
+  if (docsFrameUnmountTimer) {
+    window.clearTimeout(docsFrameUnmountTimer)
+    docsFrameUnmountTimer = undefined
+  }
+}
+
+function setDemoFrameActive(active: boolean) {
+  demoRevealActive.value = active
+  if (demoFrameUnmountTimer) {
+    window.clearTimeout(demoFrameUnmountTimer)
+    demoFrameUnmountTimer = undefined
+  }
+
+  if (active) {
+    demoFrameMounted.value = true
+    return
+  }
+
+  demoFrameUnmountTimer = window.setTimeout(() => {
+    if (!demoRevealActive.value) {
+      demoFrameMounted.value = false
+    }
+    demoFrameUnmountTimer = undefined
+  }, 5000)
+}
+
+function setDocsFrameActive(active: boolean) {
+  if (docsFrameUnmountTimer) {
+    window.clearTimeout(docsFrameUnmountTimer)
+    docsFrameUnmountTimer = undefined
+  }
+
+  if (active) {
+    docsFrameMounted.value = true
+    return
+  }
+
+  docsFrameUnmountTimer = window.setTimeout(() => {
+    docsFrameMounted.value = false
+    docsFrameUnmountTimer = undefined
+  }, 5000)
+}
 
 onMounted(async () => {
   locale.value = resolveInitialLocale()
@@ -1423,14 +1575,29 @@ onMounted(async () => {
     quickStartSectionActive.value = true
   }
   scrollInitialHashIntoView()
+  if (heroStage.value && shouldUseHeroWebGL()) {
+    heroVisibilityObserver = new IntersectionObserver(
+      ([entry]) => {
+        heroSceneInView = entry.isIntersecting && entry.intersectionRatio > 0.1
+        if (heroSceneInView) {
+          void ensureHeroScene()
+        }
+        syncHeroScenePlayback()
+      },
+      {
+        rootMargin: '120px 0px 120px 0px',
+        threshold: [0, 0.1, 0.35]
+      }
+    )
+    heroVisibilityObserver.observe(heroStage.value)
+  }
+  document.addEventListener('visibilitychange', syncHeroScenePlayback)
+
   if (demoReveal.value) {
     demoRevealObserver = new IntersectionObserver(
       ([entry]) => {
         const active = entry.isIntersecting && entry.intersectionRatio > 0.18
-        demoRevealActive.value = active
-        if (active) {
-          demoFrameLoaded.value = true
-        }
+        setDemoFrameActive(active)
       },
       {
         rootMargin: '-12% 0px -18% 0px',
@@ -1438,6 +1605,19 @@ onMounted(async () => {
       }
     )
     demoRevealObserver.observe(demoReveal.value)
+  }
+
+  if (docsFrame.value) {
+    docsFrameObserver = new IntersectionObserver(
+      ([entry]) => {
+        setDocsFrameActive(entry.isIntersecting && entry.intersectionRatio > 0.12)
+      },
+      {
+        rootMargin: '-8% 0px -14% 0px',
+        threshold: [0, 0.12, 0.4]
+      }
+    )
+    docsFrameObserver.observe(docsFrame.value)
   }
 
   if (quickStartSection.value) {
@@ -1453,25 +1633,22 @@ onMounted(async () => {
     )
     quickStartObserver.observe(quickStartSection.value)
   }
-
-  const dispose = await initHeroScene()
-  if (heroSceneDisposed) {
-    dispose()
-    return
-  }
-  disposeHeroScene = dispose
 })
 
 onBeforeUnmount(() => {
   heroSceneDisposed = true
   window.removeEventListener('scroll', requestPageNavStateUpdate)
   window.removeEventListener('resize', requestPageNavStateUpdate)
+  document.removeEventListener('visibilitychange', syncHeroScenePlayback)
+  heroVisibilityObserver?.disconnect()
   demoRevealObserver?.disconnect()
+  docsFrameObserver?.disconnect()
   quickStartObserver?.disconnect()
   topbarResizeObserver?.disconnect()
+  clearFrameUnmountTimers()
   window.cancelAnimationFrame(quickStartScrollFrame)
   window.cancelAnimationFrame(pageScrollFrame)
-  disposeHeroScene?.()
+  heroSceneController?.dispose()
 })
 </script>
 
@@ -1561,7 +1738,18 @@ onBeforeUnmount(() => {
       </div>
 
       <div class="hero-visual" aria-label="Flyfish File Viewer 3D product preview">
-        <div class="hero-stage">
+        <div ref="heroStage" class="hero-stage" :class="{ 'is-webgl-ready': heroCanvasReady }">
+          <div class="hero-static-preview" aria-hidden="true">
+            <span class="hero-static-page hero-static-page-one"></span>
+            <span class="hero-static-page hero-static-page-two"></span>
+            <span class="hero-static-page hero-static-page-three"></span>
+            <span class="hero-static-line hero-static-line-one"></span>
+            <span class="hero-static-line hero-static-line-two"></span>
+            <span class="hero-static-line hero-static-line-three"></span>
+            <span class="hero-static-node hero-static-node-one"></span>
+            <span class="hero-static-node hero-static-node-two"></span>
+            <span class="hero-static-node hero-static-node-three"></span>
+          </div>
           <canvas ref="heroCanvas" class="three-canvas" aria-hidden="true"></canvas>
           <div class="hero-signal hero-signal-top">
             <FileSpreadsheet :size="18" />
@@ -1640,7 +1828,7 @@ onBeforeUnmount(() => {
               <strong>demo.file-viewer.app</strong>
             </div>
             <iframe
-              v-if="demoFrameLoaded"
+              v-if="demoFrameMounted"
               :src="demoUrl"
               title="Flyfish File Viewer live demo"
               loading="lazy"
@@ -1783,7 +1971,7 @@ onBeforeUnmount(() => {
         <a :href="`${docsUrl}guide/usage`" target="_blank" rel="noreferrer">{{ isZh ? '组件参数' : 'Options' }}</a>
         <a :href="`${docsUrl}guide/distribution`" target="_blank" rel="noreferrer">{{ isZh ? '部署分发' : 'Distribution' }}</a>
       </div>
-      <div class="docs-frame-card">
+      <div ref="docsFrame" class="docs-frame-card">
         <div class="demo-browser-bar">
           <span />
           <span />
@@ -1791,10 +1979,16 @@ onBeforeUnmount(() => {
           <strong>doc.file-viewer.app / guide / quickstart</strong>
         </div>
         <iframe
+          v-if="docsFrameMounted"
           :src="docsQuickstartUrl"
           title="Flyfish File Viewer quickstart documentation"
           loading="lazy"
         ></iframe>
+        <div v-else class="demo-frame-placeholder docs-frame-placeholder">
+          <BookOpen :size="28" />
+          <strong>{{ isZh ? '快速开始文档' : 'Quickstart docs' }}</strong>
+          <span>{{ isZh ? '官方文档即将加载' : 'Documentation loading' }}</span>
+        </div>
       </div>
     </section>
 
@@ -1974,7 +2168,7 @@ onBeforeUnmount(() => {
       <div class="qr-grid">
         <article v-for="item in qrItems" :key="item.label" class="qr-card">
           <div class="qr-image">
-            <img :src="item.image" :alt="item.label" />
+            <img :src="item.image" :alt="item.label" loading="lazy" decoding="async" />
           </div>
           <strong>
             <QrCode :size="15" />
