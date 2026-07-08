@@ -613,6 +613,8 @@ export interface FileViewerDocxOptions {
   updatePageReferences?: boolean;
   hideWebHiddenContent?: boolean;
   ignoreLastRenderedPageBreak?: boolean;
+  /** Overrides automatic DOCX dark rendering derived from the viewer theme. */
+  darkMode?: boolean;
 }
 
 export interface FileViewerSpreadsheetOptions {

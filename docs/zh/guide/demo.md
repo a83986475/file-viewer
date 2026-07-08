@@ -123,11 +123,11 @@ pnpm verify:demo-output
 
 ## Word 页面效果
 
-Word 示例被单独拿出来说明，因为它已经不只是“能打开”，而是具备更明确的页面感。`.doc` 和 `.docx` 都会尽量保留灰色页面底、白色纸张、页面居中和宽度自适应的阅读体验。
+Word 示例被单独拿出来说明，因为它已经不只是“能打开”，而是具备更明确的页面感。`.doc` 和 `.docx` 都会尽量保留页面居中和宽度自适应的阅读体验；DOCX 会跟随 viewer 主题显示浅色纸张或深色文档面。
 
 <div class="doc-shot">
   <img src="/_media/flyfish-viewer-demo.gif" alt="Flyfish Viewer Word、PDF、PPTX 与文档比对动图" />
-  <p class="doc-caption">动图中包含 Word / PDF 阅读面和文档比对效果；Word 文件会显示在灰色工作台中的白色纸张上，页面居中，阅读体验更接近真实文档。</p>
+  <p class="doc-caption">动图中包含 Word / PDF 阅读面和文档比对效果；Word 文件会显示在主题协调的文档工作台中，页面居中，阅读体验更接近真实文档。</p>
 </div>
 
 ## Vanilla JS / React 组件 Demo
@@ -156,7 +156,7 @@ pnpm --filter @flyfish-group/file-viewer-component-demo preview
 | 文件 | 用途 | 对应能力 |
 | --- | --- | --- |
 | `test.doc` | 验证老 Word 文档链路 | `doc` + Word 风格页面容器 |
-| `word.docx` | Basel Convention 公开中文正式文档，验证现代 Word 长文档、标题层级、表格、图示、白色纸张和完整打印 | `docx` |
+| `word.docx` | Basel Convention 公开中文正式文档，验证现代 Word 长文档、标题层级、表格、图示、主题阅读面和完整打印 | `docx` |
 | `excel.xlsx` | 验证表格样式链路 | `xlsx` |
 | `excel.xlsm` | 验证宏工作簿扩展名映射 | `xlsm` |
 | `excel.xlsb` | 验证二进制工作簿扩展名映射 | `xlsb` |

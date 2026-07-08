@@ -11,6 +11,7 @@ import {
   createFileViewerZoomChangeEmitter as createZoomChangeEmitter,
   formatCssPixels,
   getElementPrintPageSize,
+  normalizeFileViewerTheme,
   registerFileViewerZoomProvider,
   resolveFileViewerFitScale,
   unregisterFileViewerZoomProvider,
@@ -32,7 +33,7 @@ const DOCX_WORKER_UNSAFE_PROTOCOLS = new Set(['file:', 'about:', 'data:'])
 const DOCX_MIN_SCALE = 0.24
 const DOCX_MAX_SCALE = 3
 const DOCX_ZOOM_STEP = 0.15
-const DOCX_VENDOR_ASSET_VERSION = '0.3.17'
+const DOCX_VENDOR_ASSET_VERSION = '0.3.18'
 const ZIP_SIGNATURE_PK = 0x504b
 
 const loadLibrary = (() => {
@@ -105,6 +106,31 @@ const shouldUseDocxWorker = (
   return !DOCX_WORKER_UNSAFE_PROTOCOLS.has(getTargetProtocol(target))
 }
 
+const prefersDarkColorScheme = (target: HTMLDivElement) => {
+  const view = getTargetWindow(target)
+  const matchMedia = view?.matchMedia ?? globalThis.matchMedia
+  return typeof matchMedia === 'function' && matchMedia('(prefers-color-scheme: dark)').matches
+}
+
+const resolveDocxDarkMode = (
+  target: HTMLDivElement,
+  context: FileRenderContext | undefined,
+  docxOptions: FileViewerDocxOptions | undefined
+) => {
+  if (docxOptions?.darkMode !== undefined) {
+    return docxOptions.darkMode
+  }
+
+  const theme = normalizeFileViewerTheme(context?.options?.theme)
+  if (theme === 'dark') {
+    return true
+  }
+  if (theme === 'light') {
+    return false
+  }
+  return prefersDarkColorScheme(target)
+}
+
 const appendDocxVendorAssetVersion = (url: string | undefined, explicitUrl: boolean) => {
   if (!url || explicitUrl) {
     return url
@@ -122,6 +148,7 @@ const createDocxOptions = (
   const documentBaseUrl = target.ownerDocument.URL || undefined
   const useWorker = shouldUseDocxWorker(target, docxOptions)
   const usePagedLayout = docxOptions?.visualPagination === true
+  const darkMode = resolveDocxDarkMode(target, context, docxOptions)
   const progress = (event: DocxProgressEvent) => {
     if (event.phase === 'render' || event.phase === 'layout' || event.phase === 'done') {
       notifyProgressiveRender()
@@ -132,6 +159,7 @@ const createDocxOptions = (
     useWorker,
     breakPages: usePagedLayout,
     ignoreLastRenderedPageBreak: docxOptions?.ignoreLastRenderedPageBreak ?? !usePagedLayout,
+    darkMode,
     progress
   }
 
@@ -192,6 +220,11 @@ const DOCX_RESPONSIVE_CSS = `
   height: 100%;
   overflow: auto;
   background: #ececec;
+  color-scheme: light;
+}
+.docx-fit-viewer[data-docx-dark-mode='true'] {
+  background: #242424;
+  color-scheme: dark;
 }
 .docx-fit-viewer .docx-wrapper {
   box-sizing: border-box;
@@ -199,6 +232,9 @@ const DOCX_RESPONSIVE_CSS = `
   width: 100% !important;
   padding: 24px 14px 40px !important;
   background: #e7e9ec !important;
+}
+.docx-fit-viewer[data-docx-dark-mode='true'] .docx-wrapper {
+  background: #242424 !important;
 }
 .docx-fit-viewer .docx-page-frame {
   position: relative;
@@ -223,9 +259,15 @@ const DOCX_RESPONSIVE_CSS = `
   background: #ffffff !important;
   box-shadow: 0 2px 14px rgba(25, 35, 48, 0.18);
   box-sizing: border-box;
-  color: #111827;
   overflow: hidden;
   transform-origin: top center;
+}
+.docx-fit-viewer[data-docx-dark-mode='true'] .docx-page-frame > section.docx,
+.docx-fit-viewer[data-docx-dark-mode='true'] .docx-flow-frame > section.docx {
+  background: rgb(51, 51, 51) !important;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  outline: 1px solid rgba(255, 255, 255, 0.15);
+  outline-offset: -1px;
 }
 .docx-fit-viewer .docx-flow-frame > section.docx {
   height: auto !important;
@@ -561,6 +603,7 @@ export default async function(buffer: ArrayBuffer, target: HTMLDivElement, conte
   const { defaultOptions, renderAsync } = await loadLibrary()
 
   target.dataset.docxWorker = docxOptions.useWorker ? 'self' : 'false'
+  target.dataset.docxDarkMode = docxOptions.darkMode ? 'true' : 'false'
   await renderAsync(buffer, target, undefined, {
     ...defaultOptions,
     ...docxOptions
@@ -586,6 +629,7 @@ export default async function(buffer: ArrayBuffer, target: HTMLDivElement, conte
       context?.registerExportAdapter?.(null)
       disposeResponsive()
       delete target.dataset.docxWorker
+      delete target.dataset.docxDarkMode
       target.innerHTML = ''
     }
   }

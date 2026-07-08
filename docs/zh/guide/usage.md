@@ -227,6 +227,7 @@ const options = {
 | `docx.worker` | 是否启用 `@file-viewer/renderer-word` 内部的 `@file-viewer/docx` Worker 解析，默认自动检测：HTTP/HTTPS 启用 Worker，Electron `file://`、`about:`、`data:` 等不安全本地协议自动回退主线程；显式设为 `true` / `false` 时按业务配置执行 |
 | `docx.workerUrl` | 自定义 DOCX Worker 地址，默认尝试当前部署 base 下的 `vendor/docx/docx.worker.js` |
 | `docx.workerJsZipUrl` | 自定义 DOCX Worker 内加载的 JSZip 地址，默认尝试当前部署 base 下的 `vendor/docx/jszip.min.js` |
+| `docx.darkMode` | 是否强制 DOCX 使用暗黑渲染。默认不传，由 `options.theme` 决定：`dark` 开启、`light` 关闭、`system` 跟随浏览器系统主题 |
 | `docx.progressive` | 是否启用异步分批渲染，默认按批次让出主线程，提升大文档首屏和滚动响应 |
 | `docx.visualPagination` | 是否启用页式预览和预览层兜底分页，默认 `false`。默认 DOCX 使用连续流式阅读，避免复杂目录、表格和长段落被分页拆坏；只有业务明确需要页式效果时再设为 `true` |
 | `docx.workerTimeout` | DOCX Worker 超时时间，默认 5000ms，静态资源路径、MIME、CSP 或 WebView 不兼容时会更快回退 |
@@ -478,7 +479,7 @@ Vanilla JS / Pure Web、React、jQuery 和 Svelte 接入时，搜索和定位仍
 
 ## DOCX 流式阅读
 
-`.docx`、`.docm`、`.dotx`、`.dotm` 由 `@file-viewer/renderer-word` 按需装配，并在命中格式时加载自研 `@file-viewer/docx` 做高可读流式渲染。默认链路会用 Worker 完成 ZIP/XML 解析，再在真实浏览器 DOM 中连续输出正文、目录字段缓存、页眉页脚、段落样式和制表符规则，最后执行宽度自适应、打印和导出适配。默认不分页，优先保证复杂目录、长表格、中文公文和正式文档的连续阅读稳定性。
+`.docx`、`.docm`、`.dotx`、`.dotm` 由 `@file-viewer/renderer-word` 按需装配，并在命中格式时加载自研 `@file-viewer/docx` 做高可读流式渲染。默认链路会用 Worker 完成 ZIP/XML 解析，再在真实浏览器 DOM 中连续输出正文、目录字段缓存、页眉页脚、段落样式和制表符规则，最后执行宽度自适应、暗黑主题、打印和导出适配。默认不分页，优先保证复杂目录、长表格、中文公文和正式文档的连续阅读稳定性。
 
 ```vue
 <FileViewer
@@ -494,6 +495,8 @@ Vanilla JS / Pure Web、React、jQuery 和 Svelte 接入时，搜索和定位仍
       workerJsZipUrl: '/file-viewer/vendor/docx/jszip.min.js',
       // 默认启用异步分批渲染，提升大文档可读性和响应速度。
       progressive: true,
+      // 默认跟随 options.theme；业务需要固定效果时可显式传 true / false。
+      // darkMode: true,
       // 默认 false，使用连续流式阅读；只有明确需要页式预览时再开启。
       visualPagination: false,
       // 默认 5000。Worker 超时后自动回退，避免永久 loading。
@@ -506,7 +509,7 @@ Vanilla JS / Pure Web、React、jQuery 和 Svelte 接入时，搜索和定位仍
 />
 ```
 
-私有化部署时，`file-viewer-copy-assets` 会复制 `vendor/docx/docx.worker.js` 和 `vendor/docx/jszip.min.js`。如果静态目录前缀特殊，请同时配置 `docx.workerUrl` 和 `docx.workerJsZipUrl`。结构复杂的 Word 文件建议保持 `strictWordCompatibility: true`、`preserveComplexFieldResults: true` 和默认流式布局，这样目录、制表符、页眉页脚、长表格和连续正文更稳定；确实需要页式效果时再设置 `visualPagination: true`。
+私有化部署时，`file-viewer-copy-assets` 会复制 `vendor/docx/docx.worker.js` 和 `vendor/docx/jszip.min.js`。如果静态目录前缀特殊，请同时配置 `docx.workerUrl` 和 `docx.workerJsZipUrl`。DOCX 默认跟随 viewer 主题：暗色 viewer 下使用深色文档阅读面，浅色 viewer 下保留传统浅色文档面；打印仍会回到适合纸张输出的浅色内容。结构复杂的 Word 文件建议保持 `strictWordCompatibility: true`、`preserveComplexFieldResults: true` 和默认流式布局，这样目录、制表符、页眉页脚、长表格和连续正文更稳定；确实需要页式效果时再设置 `visualPagination: true`。
 
 ## 打印、导出和水印的交付行为
 

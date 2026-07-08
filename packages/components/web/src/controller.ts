@@ -11,6 +11,7 @@ import {
   DEFAULT_FILE_VIEWER_SOURCE_FILENAME,
   createFileViewerTranslator,
   getExtension,
+  normalizeFileViewerSourceUrl,
   hasVisibleFileViewerToolbarActions,
   isFileViewerZoomButtonDisabled,
   normalizeFileViewerToolbar,
@@ -239,7 +240,8 @@ const defaultFetchFile: ViewerFetchFile = async ({ url, signal }) => {
     throw new Error('fetch is not available in the current environment.');
   }
 
-  const response = await fetch(url, { signal });
+  const requestUrl = normalizeFileViewerSourceUrl(url) || url;
+  const response = await fetch(requestUrl, { signal });
   if (!response.ok) {
     throw new Error(`Failed to fetch file: ${response.status} ${response.statusText}`);
   }
@@ -758,12 +760,18 @@ export const mountViewer = (
         ));
       }
 
-      if (availability.zoomIn) {
-        const button = createButton(documentRef, '+', 'file-viewer-web-icon-button', () => controller?.zoomIn());
-        button.title = t('toolbar.zoomIn');
-        button.setAttribute('aria-label', t('toolbar.zoomIn'));
+      if (availability.zoomReset) {
+        // Placed before the zoom-in button (not after) so that toggling this
+        // button's visibility never shifts the zoom-in button's position: the
+        // toolbar group is right-aligned, and both icon buttons share the same
+        // width, so inserting "1:1" after "+" would make it land exactly on
+        // top of the previous "+" position, turning a repeated zoom-in click
+        // into an accidental reset (see GitHub issue #88).
+        const button = createButton(documentRef, '1:1', 'file-viewer-web-icon-button', () => controller?.resetZoom());
+        button.title = t('toolbar.zoomReset');
+        button.setAttribute('aria-label', t('toolbar.zoomReset'));
         button.disabled = isFileViewerZoomButtonDisabled({
-          action: 'canZoomIn',
+          action: 'canReset',
           availability,
           toolbarDisabled,
           zoomState,
@@ -771,12 +779,12 @@ export const mountViewer = (
         group.appendChild(button);
       }
 
-      if (availability.zoomReset) {
-        const button = createButton(documentRef, '1:1', 'file-viewer-web-icon-button', () => controller?.resetZoom());
-        button.title = t('toolbar.zoomReset');
-        button.setAttribute('aria-label', t('toolbar.zoomReset'));
+      if (availability.zoomIn) {
+        const button = createButton(documentRef, '+', 'file-viewer-web-icon-button', () => controller?.zoomIn());
+        button.title = t('toolbar.zoomIn');
+        button.setAttribute('aria-label', t('toolbar.zoomIn'));
         button.disabled = isFileViewerZoomButtonDisabled({
-          action: 'canReset',
+          action: 'canZoomIn',
           availability,
           toolbarDisabled,
           zoomState,

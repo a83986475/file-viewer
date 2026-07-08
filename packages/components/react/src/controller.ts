@@ -2,6 +2,7 @@ import { createViewer } from '@file-viewer/core';
 import {
   DEFAULT_FILE_VIEWER_SOURCE_FILENAME,
   getExtension,
+  normalizeFileViewerSourceUrl,
   normalizeFilename,
   readFileViewerBuffer,
   resolveFileViewerSourceFilename,
@@ -203,7 +204,8 @@ const defaultFetchFile: ViewerFetchFile = async ({ url, signal }) => {
     throw new Error('fetch is not available in the current environment.');
   }
 
-  const response = await fetch(url, { signal });
+  const requestUrl = normalizeFileViewerSourceUrl(url) || url;
+  const response = await fetch(requestUrl, { signal });
   if (!response.ok) {
     throw new Error(`Failed to fetch file: ${response.status} ${response.statusText}`);
   }

@@ -252,6 +252,8 @@ const getCadDocumentBaseUrl = (target: HTMLElement) => {
   return target.ownerDocument?.baseURI || 'file:///';
 };
 
+const CAD_DWG_WORKER_FILENAME = 'file-viewer-input.dwg';
+
 type CadFitMatrix = {
   a: number;
   b: number;
@@ -716,6 +718,15 @@ export default async function renderCad(
     return context?.filename || `drawing.${normalizedType}`;
   };
 
+  const buildWorkerFileName = () => {
+    return normalizedType === 'dwg' ? CAD_DWG_WORKER_FILENAME : buildFileName();
+  };
+
+  const restoreLoadResultSourceName = (result: CadViewerLoadResult) => {
+    result.document.sourceName = buildFileName();
+    return result;
+  };
+
   const getWarnings = () => loadResult?.warnings || loadResult?.document.warnings || [];
 
   const getZoomPercent = () => {
@@ -1046,7 +1057,7 @@ export default async function renderCad(
         syncState();
       },
       onLoad: result => {
-        loadResult = result;
+        loadResult = restoreLoadResultSourceName(result);
         layers = collectLayers(result);
         syncUi();
       },
@@ -1084,7 +1095,7 @@ export default async function renderCad(
       viewer?.destroy();
       viewer = createViewer();
       const cadAssets = resolveFileViewerCadAssetUrls(options, getCadDocumentBaseUrl(target));
-      const result = await viewer.loadBuffer(buffer.slice(0), buildFileName(), {
+      const result = await viewer.loadBuffer(buffer.slice(0), buildWorkerFileName(), {
         signal: controller.signal,
         transferInputBuffer: false,
         dxfEncoding: options.dxfEncoding,
@@ -1095,7 +1106,7 @@ export default async function renderCad(
       if (disposed || controller.signal.aborted) {
         return;
       }
-      loadResult = result;
+      loadResult = restoreLoadResultSourceName(result);
       layers = collectLayers(result);
       status = 'ready';
       syncUi();

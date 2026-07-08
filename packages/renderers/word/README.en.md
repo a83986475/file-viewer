@@ -31,7 +31,7 @@ Use `@file-viewer/preset-all` when you want the same complete matrix as the offi
 
 ## Capabilities
 
-- DOCX / DOCM / DOTX / DOTM use the self-maintained `@file-viewer/docx` engine with Worker parsing, continuous reading layout, cached TOC fields, and async batched rendering.
+- DOCX / DOCM / DOTX / DOTM use the self-maintained `@file-viewer/docx` engine with Worker parsing, continuous reading layout, cached TOC fields, async batched rendering, and a dark document surface that follows the viewer theme.
 - DOC / DOT use `@file-viewer/doc` with a Word-like paper surface, zoom, print, and HTML export adapters.
 - RTF uses `rtf.js`; ODT / ODP read `content.xml` from OpenDocument packages for safe structure previews.
 - The renderer reuses core search, zoom, print, export, lifecycle, and operation APIs.
@@ -53,6 +53,8 @@ const options = {
   },
 }
 ```
+
+DOCX dark rendering follows `options.theme` by default: `dark` enables it, `light` disables it, and `system` follows the browser color scheme. Pass `options.docx.darkMode: true / false` when the host app needs a fixed result.
 
 ## Migration
 

@@ -31,7 +31,7 @@ const options = {
 
 ## 能力边界
 
-- DOCX / DOCM / DOTX / DOTM 使用自研 `@file-viewer/docx`，默认 Worker 解析、连续流式阅读、目录字段缓存和异步分批渲染。
+- DOCX / DOCM / DOTX / DOTM 使用自研 `@file-viewer/docx`，默认 Worker 解析、连续流式阅读、目录字段缓存、异步分批渲染，并跟随 viewer 主题启用暗黑文档面。
 - DOC / DOT 使用 `@file-viewer/doc`，并套用 Word 风格纸张阅读面、缩放、打印和 HTML 导出适配。
 - RTF 使用 `rtf.js`，ODT / ODP 读取 OpenDocument 包内 `content.xml` 做安全结构预览。
 - 继续复用 core 的统一搜索、缩放、打印、导出、生命周期和操作能力。
@@ -53,6 +53,8 @@ const options = {
   },
 }
 ```
+
+DOCX 暗黑渲染默认由 `options.theme` 决定：`dark` 开启、`light` 关闭、`system` 跟随浏览器系统主题。需要业务固定效果时可传 `options.docx.darkMode: true / false`。
 
 ## 迁移说明
 

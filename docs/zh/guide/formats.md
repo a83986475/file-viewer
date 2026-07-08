@@ -30,7 +30,7 @@
 
 | 分类 | 扩展名 | 渲染链路 | 当前表现 | 更适合的场景 |
 | --- | --- | --- | --- | --- |
-| Word | `docx`、`docm`、`dotx`、`dotm` | `@file-viewer/renderer-word` + 自研 `@file-viewer/docx` | 白色文档面显示在灰色阅读底中，支持宽度自适应；默认使用 Worker 解析、真实浏览器 DOM 渲染、连续流式阅读、目录字段缓存和异步分批渲染，模板/宏格式按只读预览处理 | 新生成的 Word 文档、正式公文、Word 模板 |
+| Word | `docx`、`docm`、`dotx`、`dotm` | `@file-viewer/renderer-word` + 自研 `@file-viewer/docx` | 文档阅读面跟随 viewer 主题，浅色下保留白色纸张，暗色下使用深色文档面；支持宽度自适应；默认使用 Worker 解析、真实浏览器 DOM 渲染、连续流式阅读、目录字段缓存和异步分批渲染，模板/宏格式按只读预览处理 | 新生成的 Word 文档、正式公文、Word 模板 |
 | Word | `doc`、`dot` | `@file-viewer/renderer-word` + `msdoc-viewer` | 使用 Word 风格页面容器，页面居中显示在灰色工作台中，增强 CFB 容错和表格布局 | 存量老文档、Word 97-2003 模板、历史附件回溯 |
 | 兼容文档 | `rtf`、`odt` | `@file-viewer/renderer-word` + `rtf.js` / OpenDocument `content.xml` | RTF 走 RTFJS 生成只读 HTML，ODT 读取 ODF 包内正文并套用纸张阅读面 | RTF 富文本、OpenDocument 文本文档 |
 | Excel | `xlsx`、`xltx` | `@file-viewer/renderer-spreadsheet` + `styled-exceljs` + `e-virt-table` + 自动静态 Worker | 支持虚拟滚动、列宽/行高、合并单元格、常见样式、workbook drawing 图片和可选表头拖拽调整列宽；默认 `worker: auto`，大文件自动启用 Worker，小文件保留主线程兼容路径；打印按钮按能力隐藏 | 大表格预览、报表、Excel 模板 |
@@ -63,7 +63,7 @@
 
 ### Word 文档
 
-- `docx`、`docm`、`dotx`、`dotm` 由 `@file-viewer/renderer-word` 按需装配，并在命中格式时加载自研 `@file-viewer/docx`，适合正文、表格、图片、目录字段和常规版式较多的现代 Word 文档与模板。当前预览层会恢复白色文档面和灰色阅读底，并根据可用宽度自动缩放；宏内容只作为只读文档结构预览，不执行宏。
+- `docx`、`docm`、`dotx`、`dotm` 由 `@file-viewer/renderer-word` 按需装配，并在命中格式时加载自研 `@file-viewer/docx`，适合正文、表格、图片、目录字段和常规版式较多的现代 Word 文档与模板。当前预览层会根据 viewer 主题选择浅色纸张或深色文档面，并根据可用宽度自动缩放；宏内容只作为只读文档结构预览，不执行宏。
 - 如果你只安装 `@file-viewer/core` 或轻量组件包，Word 能力不会被默认拉进依赖树；生产项目可显式装配 `@file-viewer/renderer-word`，办公文档平台优先使用 `@file-viewer/preset-office`，完整 Demo 和全格式场景可直接使用 `@file-viewer/preset-all`。
 - DOCX 默认自动选择 `@file-viewer/docx` Worker 或主线程解析：HTTP/HTTPS 部署启用 Worker，Electron `file://` 等本地不安全协议自动回退；真实浏览器 DOM 渲染、连续流式阅读、目录字段缓存和异步分批渲染会继续优先保证复杂目录、长表格、制表符、页眉页脚、字段和样式继承稳定；私有静态资源路径特殊时可配置 `options.docx.workerUrl` 和 `options.docx.workerJsZipUrl`。
 - `doc`、`dot` 使用 `msdoc-viewer`，并额外套用 Word 风格页面容器。构建前会通过包管理器无关的补丁脚本增强 CFB 局部 sector 容错，它不只是“把内容吐出来”，而是尽量保留文档阅读时的页面感。
@@ -74,7 +74,7 @@
 
 <div class="doc-shot">
   <img src="/_media/flyfish-viewer-demo.gif" alt="Flyfish Viewer Word、PDF、PPTX 和文档比对动图" />
-  <p class="doc-caption">动图展示 Word、PDF、PPTX 和文档比对效果；Word 类文件会显示在灰色工作台中的白色纸张上，页面居中，阅读路径更接近真实文档软件。</p>
+  <p class="doc-caption">动图展示 Word、PDF、PPTX 和文档比对效果；Word 类文件会显示在主题协调的文档工作台中，页面居中，阅读路径更接近真实文档软件。</p>
 </div>
 
 ### Office 模板格式

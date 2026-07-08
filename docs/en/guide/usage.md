@@ -133,6 +133,7 @@ Every renderer below can be passed through `options.renderers`:
 | `docx.worker` | Auto-detects the safest DOCX parsing path by default: HTTP/HTTPS keeps the worker enabled, while Electron `file://`, `about:`, and `data:` documents fall back to the main thread. Explicit `true` / `false` values still take precedence. |
 | `docx.workerUrl` / `docx.workerJsZipUrl` | Self-host DOCX worker and JSZip assets. |
 | `docx.workerTimeout` | Worker startup timeout. The default is 5000ms so unsupported paths, MIME, CSP, or WebView environments fall back quickly. |
+| `docx.darkMode` | Forces DOCX dark rendering when set. By default it follows `options.theme`: `dark` enables it, `light` disables it, and `system` follows the browser color scheme. |
 | `docx.progressive` | Lets the renderer yield between batches to improve first content and scroll responsiveness on large documents. |
 | `docx.visualPagination` | Optional page-like preview. Default DOCX rendering is continuous flow to avoid breaking complex tables and directories. |
 | `spreadsheet.worker` | Spreadsheet worker mode. The default `auto` keeps small files on the main-thread compatibility path and automatically tries the worker once file size reaches `spreadsheet.workerAutoThreshold`; explicit `true` / `false` values still take precedence. |

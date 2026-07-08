@@ -2,6 +2,12 @@
 
 这份日志记录的是当前仓库主线中，对外最值得说明的能力演进。
 
+## 当前主线 DOCX 暗黑模式适配
+
+- DOCX 渲染引擎升级到 `@file-viewer/docx@0.3.18`，同步刷新 `vendor/docx/docx.worker.js` 和缓存版本参数，确保本地 Demo、web viewer 与 compat viewer 使用同一版离线 Worker。
+- `options.theme: 'dark'` 会自动启用 DOCX 暗黑渲染；`theme: 'light'` 保持浅色文档面；`theme: 'system'` 继续跟随浏览器 `prefers-color-scheme`。需要业务强制覆盖时可设置 `options.docx.darkMode: true / false`。
+- 新增 DOCX 暗黑样式回归断言，覆盖 viewer 背景、DOCX 包裹层、文档页颜色和 `color-scheme`，避免暗色模式下出现白块、透明底或文字对比度异常。
+
 ## `v2.1.20` 压缩包中文文件名与 full 资产路径修复
 
 - 修复未声明 UTF-8 的 GBK/GB18030 ZIP 文件名乱码问题，兼容客户压缩包中中文文件名目录展示。

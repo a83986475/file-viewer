@@ -65,7 +65,13 @@
     "./package.json": "./package.json"
   },
   "files": [
+    "assets.js",
+    "assets.d.ts",
+    "browser.js",
+    "browser.d.ts",
     "dist",
+    "headless.js",
+    "headless.d.ts",
     "vendor",
     "README.md",
     "README.en.md",
