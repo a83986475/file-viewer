@@ -2,6 +2,8 @@
 
 A framework-free starter using the lightweight Web Component and `preset-lite`. It previews text, code, Markdown, images, audio, and video while keeping the initial dependency set compact.
 
+After copying this directory outside the monorepo:
+
 ```bash
 pnpm install
 pnpm dev
@@ -10,6 +12,8 @@ pnpm dev
 From the repository root:
 
 ```bash
+pnpm install --frozen-lockfile
+pnpm build
 pnpm --dir examples/vanilla-vite dev
 ```
 

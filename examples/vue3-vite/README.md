@@ -2,6 +2,8 @@
 
 A one-step Vue 3 starter using `@file-viewer/vue3-full`. It enables the complete preset and all 206 maintained extension mappings while keeping heavy renderers lazy by format.
 
+After copying this directory outside the monorepo:
+
 ```bash
 pnpm install
 pnpm dev
@@ -10,6 +12,8 @@ pnpm dev
 From the repository root:
 
 ```bash
+pnpm install --frozen-lockfile
+pnpm build
 pnpm --dir examples/vue3-vite dev
 ```
 

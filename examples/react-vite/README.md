@@ -2,6 +2,8 @@
 
 A production-shaped React starter for PDF/OFD, Word, spreadsheet, and presentation files. The component is React-native; renderer capability comes from the modular Office preset.
 
+After copying this directory outside the monorepo:
+
 ```bash
 pnpm install
 pnpm dev
@@ -10,6 +12,8 @@ pnpm dev
 From the repository root:
 
 ```bash
+pnpm install --frozen-lockfile
+pnpm build
 pnpm --dir examples/react-vite dev
 ```
 
