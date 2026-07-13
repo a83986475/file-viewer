@@ -212,7 +212,7 @@ pnpm verify:browser-smoke
 - [Format matrix](https://doc.file-viewer.app/guide/formats)
 - [API and options](https://doc.file-viewer.app/guide/usage)
 - [Offline deployment](https://doc.file-viewer.app/guide/distribution)
-- [Asset-copy CLI](packages/tools/copy-assets): `npx --yes file-viewer-copy-assets@2.1.27 ./public/file-viewer`
+- [Asset-copy CLI](packages/tools/copy-assets): `npx --yes file-viewer-copy-assets ./public/file-viewer`
 - [Docker](https://doc.file-viewer.app/guide/docker)
 - [Ecosystem packages](https://doc.file-viewer.app/guide/ecosystem)
 - [Releases and downloadable archives](https://github.com/flyfish-dev/file-viewer/releases)
