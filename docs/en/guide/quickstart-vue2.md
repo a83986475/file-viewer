@@ -113,6 +113,12 @@ import FileViewer from '@file-viewer/vue2.7-full'
 Vue.use(FileViewer)
 ```
 
+`@file-viewer/vue2.7-full` and `@file-viewer/vue2.6-full` already include `preset-all`; do not install or pass it again. With the Vite configuration above, dev and build publish the complete matching assets automatically. Vue CLI, webpack 4, Rspack, Rollup, and other non-Vite projects run the Full package's included same-version CLI:
+
+```bash
+npx --no-install file-viewer-copy-assets ./public/file-viewer
+```
+
 Use `formats`, `renderers`, `scan:true`, `inject:false`, or `chunkStrategy:'renderer'` only for explicit registry control. Normal projects should keep `fileViewerRenderers({ copyAssets:true })` and let the plugin auto-activate installed presets.
 
 ## Vue 2.6 + Vue CLI 3 / webpack 4

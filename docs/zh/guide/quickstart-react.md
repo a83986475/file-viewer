@@ -88,6 +88,12 @@ export function Preview() {
 }
 ```
 
+`@file-viewer/react-full` 和 `@file-viewer/react-legacy-full` 已内置 `preset-all`，不要重复安装或传入。完整资产交付时，Vite 保持上面的插件配置，dev/build 会自动提供和复制同版本资产；CRA、Webpack、Rspack 等非 Vite 项目运行 Full 包自带的同版本 CLI：
+
+```bash
+npx --no-install file-viewer-copy-assets ./public/file-viewer
+```
+
 需要更强自定义时，再配置 `formats`、`renderers`、`scan:true`、`inject:false` 或 `chunkStrategy:'renderer'`；默认推荐保持 `fileViewerRenderers({ copyAssets:true })`，让插件根据已安装 preset 自动激活能力。
 
 ## 最短示例

@@ -140,9 +140,12 @@ Flyfish Viewer is browser-side file preview infrastructure for business applicat
 <strong>Installation boundary:</strong> installing <code>@file-viewer/vue3</code>, <code>@file-viewer/react</code>, or <code>@file-viewer/web</code> is the lightest integration path, but it does not include every renderer. Add the preset or renderer package for the formats you need.
 </div>
 <div class="doc-callout doc-callout-compact">
-<strong>Full one-shot setup:</strong> heavy users, internal attachment centers, and validation environments can install <code>@file-viewer/preset-all</code>, keep the same <code>fileViewerRenderers({ copyAssets:true })</code> config, and get the complete official demo capability set immediately.
-<pre><code>pnpm add @file-viewer/vue3 @file-viewer/preset-all
-pnpm add -D @file-viewer/vite-plugin # optional for Vite</code></pre>
+<strong>Full one-shot setup:</strong> heavy users, internal attachment centers, and validation environments can install the native <code>*-full</code> package. It already includes <code>preset-all</code>, so do not install or pass another preset. Vite publishes the matching Worker/WASM/font/vendor assets in dev and build through <code>fileViewerRenderers({ copyAssets:true })</code>; non-Vite projects run the same-version CLI included by the Full package.
+<pre><code>pnpm add @file-viewer/vue3-full
+pnpm add -D @file-viewer/vite-plugin # Vite
+# Webpack / Vue CLI / Rspack / Rollup / Umi
+npx --no-install file-viewer-copy-assets ./public/file-viewer</code></pre>
+<p>For script-tag pages, deploy the complete <code>@file-viewer/web-full/dist/</code> directory; it already contains the full asset payload and needs no copy command.</p>
 </div>
 </section>
 

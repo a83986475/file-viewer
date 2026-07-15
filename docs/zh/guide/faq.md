@@ -28,7 +28,7 @@
 
 ## full 包安装后还需要复制 assets 吗
 
-需要。full 包解决的是渲染器注册，不会把 PDF Worker、CAD/Typst/Archive WASM、字体等二进制资源内联进业务 JavaScript；缺少这些文件时只能显示部分格式，不能算完整支持。
+不一定需要手动复制。Full 不会把 PDF Worker、CAD/Typst/Archive WASM、字体等二进制资源内联进业务 JavaScript，因此完整格式支持必须发布这些同版本资产；但从 `2.1.30` 起，Vite 自动处理，完整 `web-full/dist/` 也已自带资产，只有非 Vite 入口构建需要执行一次 CLI。
 
 - Vite：启用 `fileViewerRenderers({ copyAssets: true })`，开发和构建都会把匹配当前 full 包的资源发布到 `<部署基址>/file-viewer/`。
 - Webpack、Vue CLI 等：直接运行 full 包自带的 `npx --no-install file-viewer-copy-assets ./public/file-viewer`。
@@ -88,7 +88,7 @@ pnpm verify:npm-install-smoke
 如果报错来自 archive、CAD、Typst 等重型资源路径，请发布并自托管资源:
 
 ```bash
-pnpm exec file-viewer-copy-assets ./public/file-viewer
+npx --yes file-viewer-copy-assets ./public/file-viewer
 ```
 
 ## 为什么带查询参数的下载地址有时识别不到格式

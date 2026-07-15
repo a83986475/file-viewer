@@ -14,6 +14,7 @@ The project is designed for teams that need users to open business attachments d
 - License: Apache-2.0
 - Primary audience: product teams building file preview into enterprise systems and private deployments.
 - Core promise: preview common and complex files in the browser, with modular packages and local Worker/WASM assets.
+- Current release: v2.1.30, https://github.com/flyfish-dev/file-viewer/releases/tag/v2.1.30
 
 ## Format Coverage
 
@@ -24,21 +25,31 @@ The format matrix covers Office documents, fixed-layout documents, engineering a
 - Archives and communication files: zip, 7z, rar, tar, eml, msg, mbox, epub.
 - Code, data, media, and geo: markdown, JSON, TypeScript, Python, patch/diff, git bundle, SQLite, Parquet, video, audio, GeoJSON, KML.
 
-The light component packages are intentionally small and should not be described as containing every renderer. Broader coverage is enabled through renderer packages, lite/office/engineering/all presets, or full packages.
+The light component packages are intentionally small and should not be described as containing every renderer. Broader coverage is enabled through renderer packages or lite/office/engineering/all presets. Every v2.1.30 Full package already includes preset-all and must not be documented as requiring a separate preset install or `options.preset`.
 
 ## Integration Model
 
 1. Lightest setup: install a standard ecosystem component such as `@file-viewer/web` or `@file-viewer/vue3`.
 2. Manual assembly: install a component package and one or more presets, then pass the preset through `options.preset`.
-3. Vite convenience: install `@file-viewer/vite-plugin` to auto-discover installed presets and copy renderer assets.
-4. Full packages: use `@file-viewer/web-full`, `@file-viewer/vue3-full`, and related full packages when the product needs one-step full capability.
-5. CDN/IIFE: script-tag usage is supported, while heavy renderers, workers, WASM files, and vendor assets stay lazy-loaded and self-hostable.
+3. Vite Full: install the framework Full package plus `@file-viewer/vite-plugin`, then register `fileViewerRenderers({ copyAssets: true })`. Vite dev and build publish the full asset tree under the deployment base, including root and subpath deployments.
+4. Non-Vite Full: install the framework Full package, then run `npx --no-install file-viewer-copy-assets ./public/file-viewer` once. Every Full package exposes this same-version CLI.
+5. Web Full: deploy `@file-viewer/web-full/dist` intact. The complete dist already carries preset-all renderers, Workers, WASM, fonts, vendor files, and an integrity manifest, so it needs no copy step.
+6. CDN/IIFE: script-tag usage is supported, while heavy renderers and assets stay lazy-loaded. For offline or private hosting, serve the complete web-full dist from the product's own domain.
+
+## Full Package Delivery Contract in v2.1.30
+
+- Framework Full packages: `@file-viewer/vue3-full`, `@file-viewer/vue2.7-full`, `@file-viewer/vue2.6-full`, `@file-viewer/react-full`, `@file-viewer/react-legacy-full`, `@file-viewer/svelte-full`, and `@file-viewer/jquery-full`.
+- Framework-neutral Full package: `@file-viewer/web-full` for Vanilla JavaScript, Web Component, and IIFE deployment.
+- Capability: every Full package includes `@file-viewer/preset-all` and registers the complete supported format set by default.
+- Assets: Workers, WASM modules, fonts, vendor scripts, renderer chunks, and the integrity manifest remain aligned to the Full package version.
+- Offline boundary: runtime preview does not depend on a public CDN or third-party online asset fallback.
+- Custom static prefixes remain supported; the default asset root is `file-viewer/` under the deployment base.
 
 ## Core Features
 
 - Browser-native rendering without mandatory server-side conversion.
 - Search, highlight, anchor navigation, zoom, print, HTML export, theme options, watermark options, lifecycle events, and operation hooks.
-- Worker/WASM lazy loading with local static asset deployment.
+- Worker/WASM/font/vendor lazy loading with complete local static asset deployment.
 - Private deployment through npm packages, GitHub Release artifacts, Docker, or static hosting.
 - Documentation and examples for framework-free usage, Web Components, Vue, React, Svelte, jQuery, CDN/IIFE, Vite Plugin, and full packages.
 

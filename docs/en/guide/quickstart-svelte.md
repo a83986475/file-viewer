@@ -121,4 +121,10 @@ export default {
 }
 ```
 
-Non-Vite projects can keep using `options.preset` / `options.renderers` explicitly.
+When `@file-viewer/svelte-full` is installed, this configuration recognizes it and publishes the complete matching asset payload in dev and build. The Full package already includes `preset-all`; do not install or pass another preset. Non-Vite Full builds run the included same-version CLI:
+
+```bash
+npx --no-install file-viewer-copy-assets ./public/file-viewer
+```
+
+Non-Vite standard-package projects keep using `options.preset` / `options.renderers` explicitly.

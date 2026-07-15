@@ -121,4 +121,10 @@ export default {
 }
 ```
 
-非 Vite 项目继续使用 `options.preset` / `options.renderers` 显式注入能力即可。
+安装 `@file-viewer/svelte-full` 时，同一配置会识别 Full 包并在 dev/build 自动发布完整同版本资产；Full 已内置 `preset-all`，不要再安装或传入 preset。非 Vite Full 项目运行随包安装的同版本 CLI：
+
+```bash
+npx --no-install file-viewer-copy-assets ./public/file-viewer
+```
+
+非 Vite 标准包项目继续使用 `options.preset` / `options.renderers` 显式注入能力即可。

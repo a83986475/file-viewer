@@ -175,6 +175,12 @@ export default defineConfig({
 })
 ```
 
+When `@file-viewer/vue3-full` is installed, this same configuration recognizes it and publishes the complete matching asset payload in dev and build. The Full package already includes `preset-all`; application code must not install or pass another preset. Vue CLI, Webpack, Rspack, Rollup, and other non-Vite projects run the included same-version CLI instead:
+
+```bash
+npx --no-install file-viewer-copy-assets ./public/file-viewer
+```
+
 Use `preset:'auto'` or `autoPresets:true` when `scan:true` is also enabled, so installed presets stay auto-activated while source hints add extra formats.
 
 ## Compatibility Names

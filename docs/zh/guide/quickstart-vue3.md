@@ -89,10 +89,16 @@ export default defineConfig({
 })
 ```
 
-使用插件时需要完整 Demo 能力，仍然只需要把安装的 preset 换成全量包，Vite 配置保持 `fileViewerRenderers({ copyAssets:true })` 不变：
+标准包需要完整 Demo 能力时，可以把已安装 preset 换成 `preset-all`，Vite 配置保持不变：
 
 ```bash
 pnpm add @file-viewer/vue3 @file-viewer/preset-all
+```
+
+如果安装的是 `@file-viewer/vue3-full`，同一配置会直接识别 Full 包，并在 dev/build 自动发布完整同版本资产；Full 已内置 `preset-all`，不要再安装或传入 preset。Vue CLI、Webpack、Rspack、Rollup 等非 Vite 项目运行随 Full 包安装的同版本 CLI：
+
+```bash
+npx --no-install file-viewer-copy-assets ./public/file-viewer
 ```
 
 需要同时扫描源码 hint 时使用 `preset:'auto'` 或 `autoPresets:true`，这样插件会继续保留“根据已安装 preset 自动激活能力”，再额外合并源码中声明的格式。

@@ -76,6 +76,10 @@
   </div>
 </div>
 
+## Full 包完整交付（2.1.30）
+
+Full 包已内置 `preset-all`，业务代码不需要再次安装或传入 preset。完整格式支持还需要同版本 Worker、WASM、字体和 vendor 资产可访问：Vite 注册 `fileViewerRenderers({ copyAssets:true })` 后会在开发和构建阶段自动发布；Webpack、Vue CLI、Rspack、Rollup、Umi 等运行 Full 包自带的 `npx --no-install file-viewer-copy-assets ./public/file-viewer`。完整部署 `@file-viewer/web-full/dist/` 时资产已经在目录内，无需复制。
+
 ## 当前重点能力
 
 - Word 视图会跟随主题显示浅色纸张或深色文档面，`.docx` 会按当前可用宽度自适应缩放，并默认使用真实浏览器 DOM 连续流式渲染以保护目录、制表符、长表格和复杂样式；确实需要页式效果时可按需开启视觉分页。

@@ -173,4 +173,4 @@ If a file extension is in the supported matrix but its renderer has not been ass
 
 ## Asset Rules
 
-Use `copyAssets:true` or `npx --yes file-viewer-copy-assets ./public/file-viewer` for offline deployments. Worker, WASM, font, PDF, CAD, Typst, Archive, Data, and Draw.io assets should be served from your own domain.
+Use `copyAssets:true` or `npx --yes file-viewer-copy-assets ./public/file-viewer` for standard-package offline deployments. Full packages include the matching CLI and use `npx --no-install file-viewer-copy-assets ./public/file-viewer`. Worker, WASM, font, PDF, CAD, Typst, Archive, Data, and Draw.io assets should be served from your own domain.

@@ -77,6 +77,12 @@ export function Preview() {
 }
 ```
 
+`@file-viewer/react-full` and `@file-viewer/react-legacy-full` already include `preset-all`; do not install or pass it again. For complete assets, Vite keeps the plugin configuration above and automatically serves/copies the matching payload in dev and build. CRA, Webpack, Rspack, or other non-Vite builds run the Full package's same-version CLI once for the public directory:
+
+```bash
+npx --no-install file-viewer-copy-assets ./public/file-viewer
+```
+
 Use `formats`, `renderers`, `scan:true`, `inject:false`, or `chunkStrategy:'renderer'` only when the product needs explicit control. The recommended default remains `fileViewerRenderers({ copyAssets:true })`, with installed presets auto-activated by the plugin.
 
 ## Component Usage
@@ -155,4 +161,4 @@ React Native cannot mount the DOM component directly. Use a `WebView` that loads
 
 ## Vite And Assets
 
-For production bundles, use `@file-viewer/vite-plugin` or run `npx --yes file-viewer-copy-assets ./public/file-viewer` so worker/WASM assets stay self-hosted.
+For Full packages, Vite uses `fileViewerRenderers({ copyAssets:true })`; non-Vite builds use the included `npx --no-install file-viewer-copy-assets ./public/file-viewer`. Both paths keep matching Worker/WASM/font/vendor assets self-hosted under the deployment base.

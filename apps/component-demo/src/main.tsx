@@ -34,7 +34,7 @@ function App() {
       <header className="topbar">
         <div>
           <h1>Flyfish Viewer</h1>
-          <p>Full preset component smoke test</p>
+          <p>Full renderer and complete runtime asset smoke test</p>
         </div>
         <nav className="topbar-actions" aria-label="Demo links">
           <a href="/manual-js.html" target="_blank" rel="noreferrer">

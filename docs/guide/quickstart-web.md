@@ -20,6 +20,8 @@ npm install @file-viewer/web-full
 
 `@file-viewer/web-full` enables the complete format matrix while keeping `<flyfish-file-viewer>`, `mountViewer`, and the same controller APIs. Its CDN / IIFE entry only loads the shell and lazy full preset up front; heavy PDF, Word, Excel, CAD, Typst, archive, and similar renderer bundles are fetched later from `dist/renderers/*.iife.js` when the active file type needs them.
 
+The Full package already includes `preset-all`; do not install or pass another preset. Direct CDN use, or deploying its complete `dist/` directory intact, includes renderer chunks plus Worker/WASM/font/vendor assets and needs no copy command. If a package-aware build emits only the application entry, Vite uses `copyAssets:true`; non-Vite builds use the included same-version CLI shown below.
+
 The historical package name remains synchronized for compatibility:
 
 ```bash
@@ -227,10 +229,14 @@ The CDN full bundle is ideal for POCs, classic admin pages, and public productio
 For intranet or strict-CSP deployments, copy runtime assets into your own public directory:
 
 ```bash
+# @file-viewer/web-full (same-version CLI included)
+npx --no-install file-viewer-copy-assets ./public/file-viewer
+
+# Standard @file-viewer/web deployment
 npx --yes file-viewer-copy-assets ./public/file-viewer
 ```
 
-The command verifies worker, WASM, PDF, CAD, Typst, Archive, Data, DOCX, Spreadsheet, PPTX, and Draw.io assets. Runtime options such as `options.pdf.workerUrl`, `options.presentation.workerUrl`, `options.archive.wasmUrl`, `options.docx.workerUrl`, `options.typst.compilerWasmUrl`, and `options.drawing.viewerScriptUrl` can point to self-hosted URLs.
+Run one matching command only for an entry-only or non-Vite npm build; an intact `web-full/dist/` deployment already contains the same payload. The command verifies worker, WASM, PDF, CAD, Typst, Archive, Data, DOCX, Spreadsheet, PPTX, and Draw.io assets. Runtime options such as `options.pdf.workerUrl`, `options.presentation.workerUrl`, `options.archive.wasmUrl`, `options.docx.workerUrl`, `options.typst.compilerWasmUrl`, and `options.drawing.viewerScriptUrl` can point to self-hosted URLs.
 
 ## Internationalization
 

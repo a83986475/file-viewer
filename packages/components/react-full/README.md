@@ -65,7 +65,9 @@ npm install @file-viewer/react-full
 
 `@file-viewer/react-full` 已内置 `@file-viewer/preset-all` 并默认启用完整 renderer 矩阵。不要再安装或传入 `preset-office`、`preset-all` 或单独 renderer。
 
-完整格式支持还包括 PDF、Office、CAD、Typst、Archive、Draw.io、SQLite 等链路使用的 Worker、WASM、字体和 vendor 资源。缺少这些资源时，轻量格式和部分兼容路径可能仍可用，但不属于 full 包的完整格式支持。
+从 2.1.30 起，使用同一资产交付契约的 8 个官方 Full 包是：`@file-viewer/web-full`、`@file-viewer/vue3-full`、`@file-viewer/vue2.7-full`、`@file-viewer/vue2.6-full`、`@file-viewer/react-full`、`@file-viewer/react-legacy-full`、`@file-viewer/jquery-full`、`@file-viewer/svelte-full`。
+
+完整格式支持还包括 PDF、Office、CAD、Typst、Archive、Draw.io、SQLite 等链路使用的 Worker、WASM、字体和 vendor 资源。仅执行 `npm install` 只会安装完整 renderer 代码，不会把这些静态资源发布到业务站点；缺少资源目录时，轻量格式和部分兼容路径可能仍可用，但不属于 full 包的完整格式支持。
 
 ### Vite：自动发布完整资源
 

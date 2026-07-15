@@ -37,6 +37,18 @@
 | CDN 完整体验 | `https://cdn.jsdelivr.net/npm/@file-viewer/web-full@latest/dist/flyfish-file-viewer-web-full.iife.js` | 无需本地安装，适合纯 JS / script 标签快速试跑完整格式矩阵 |
 | 极致裁剪 | `npm i @file-viewer/vue3 @file-viewer/renderer-pdf` | 只安装需要的 renderer，并通过 `options.renderers` 注入 |
 
+## Full 包完整资产契约
+
+从 `2.1.30` 起，八个 Full 包使用同一套完整交付契约。它们已内置并启用 `preset-all`，但只有 renderer 注册表不等于完整格式支持；PDF/Office Worker、CAD/Typst/Archive WASM、字体、Draw.io、SQLite 等 vendor 资产也必须按同版本发布。
+
+| 构建方式 | 完整部署方式 |
+| --- | --- |
+| Vite | 注册 `fileViewerRenderers({ copyAssets:true })`；插件会识别已安装的 Full 包，并在 dev/build 自动提供、复制全部资产 |
+| Webpack、Vue CLI、Rspack、Rollup、Umi 等 | 运行 `npx --no-install file-viewer-copy-assets ./public/file-viewer`；Full 包已带同版本 CLI |
+| script 标签 / CDN | 直接使用 jsDelivr/unpkg，或完整部署 `@file-viewer/web-full/dist/`；无需复制 |
+
+Full 包旁边不要再安装另一个 `preset-all` 或不同版本的资产复制工具。所有 Full 包默认访问部署基址下的 `file-viewer/`；只有静态目录不同才调用 `setDefaultFullAssetBaseUrl('/your-prefix/')`。
+
 `options.preset` 是跨构建工具的稳定装配方式。Webpack、Rspack、Rollup、Umi、传统多页应用、微前端壳和内部组件库都可以显式 import preset，然后传给当前生态组件:
 
 ```ts
@@ -482,6 +494,8 @@ $('#viewer').fileViewer('zoomIn')
 
 如果页面已经有全局 jQuery，插件包会尽量自动挂载；显式调用 `installJQueryFileViewer($)` 更稳，也更适合模块化项目。
 
+完整格式矩阵使用 `@file-viewer/jquery-full`，无需再 import preset。Vite 保持 `copyAssets:true`；非 Vite jQuery 项目运行 Full 包自带的 `npx --no-install file-viewer-copy-assets ./public/file-viewer`。
+
 <span id="svelte"></span>
 
 ## Svelte
@@ -533,6 +547,8 @@ npm install @file-viewer/svelte
 ```
 
 SvelteKit 中请确保预览器只在浏览器端挂载，并给容器稳定高度；服务端渲染阶段不要访问 `window`、`document` 或真实文件对象。
+
+完整格式矩阵使用 `@file-viewer/svelte-full`，无需再 import preset。SvelteKit/Vite 保持 `copyAssets:true`；其它构建链运行 Full 包自带的 `npx --no-install file-viewer-copy-assets ./public/file-viewer`。
 
 <span id="core"></span>
 

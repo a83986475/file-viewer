@@ -8,6 +8,7 @@
 
 ## `v2.1.30` Full 包完整资产开箱契约
 
+- 仅执行 `npm install` 只完成 renderer 代码安装，不会自动把 Worker、WASM、字体和 vendor 文件发布到业务站点；完成下述 Vite、非 Vite 或 `web-full/dist` 交付路径后，才属于完整格式支持。
 - 八个 `*-full` 包统一内置 `preset-all` 和同一套运行时资源默认值，PDF、Office、CAD、Typst、Archive、Draw.io、SQLite 等不再因框架不同而使用不同路径。
 - 七个框架 full 包精确依赖同版本 `file-viewer-copy-assets` 并直接提供复制 CLI；`web-full` 的完整 `dist/` 自带全部资源，可原样部署。
 - Vite 插件识别 full 包后会在开发和构建阶段自动发布完整资产到部署基址下的 `file-viewer/`；自定义或空 `copyAssets.baseDir` 会同步运行时 URL，非 full 项目保持旧布局。

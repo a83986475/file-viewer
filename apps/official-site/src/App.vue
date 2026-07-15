@@ -148,6 +148,8 @@ const githubUrl = 'https://github.com/flyfish-dev/file-viewer'
 const githubApiUrl = 'https://api.github.com/repos/flyfish-dev/file-viewer'
 const githubStarCountFallback = 739
 const releasesUrl = 'https://github.com/flyfish-dev/file-viewer/releases'
+const currentReleaseVersion = '2.1.30'
+const currentReleaseUrl = `${releasesUrl}/tag/v${currentReleaseVersion}`
 const dockerDocsUrl = `${docsUrl}guide/docker`
 const githubSponsorsUrl = 'https://github.com/sponsors/wybaby168'
 const domesticSponsorUrl = 'https://dev.flyfish.group/sponsor?source=github'
@@ -176,7 +178,7 @@ const siteMetadata = {
     canonical: siteRootUrl,
     title: 'Flyfish File Viewer - 浏览器里的多格式文件预览超级组件',
     description:
-      'Flyfish File Viewer 是面向业务系统的纯前端多格式文件预览超级组件，覆盖 Office、PDF、OFD、Typst、XMind、CAD、EDA、压缩包、邮件、媒体、代码、3D、地理数据等 206 个文件扩展名。',
+      'Flyfish File Viewer 是纯前端、离线优先的多格式文件预览组件。v2.1.30 Full 包内置 preset-all，并完整交付同版本 Worker、WASM、字体与 vendor 资产。',
     ogLocale: 'zh_CN',
     ogLocaleAlternate: 'en_US',
     imageAlt: 'Flyfish File Viewer 多格式文件预览官网界面'
@@ -186,7 +188,7 @@ const siteMetadata = {
     canonical: siteEnglishUrl,
     title: 'Flyfish File Viewer - Browser-native multi-format file preview',
     description:
-      'Flyfish File Viewer is a browser-native, offline-first, self-hosted multi-format file preview component for business systems, covering Office, PDF, OFD, Typst, XMind, CAD, EDA, archives, email, media, code, 3D, and geospatial files.',
+      'Flyfish File Viewer is a browser-native, offline-first multi-format preview component. v2.1.30 Full packages include preset-all and same-version Workers, WASM, fonts, and vendor assets.',
     ogLocale: 'en_US',
     ogLocaleAlternate: 'zh_CN',
     imageAlt: 'Flyfish File Viewer multi-format file preview website'
@@ -266,14 +268,14 @@ const copy = {
       demo: '在线体验'
     },
     hero: {
-      eyebrow: '浏览器原生文件预览超级组件',
+      eyebrow: 'v2.1.30 · 浏览器原生文件预览超级组件',
       title: '把复杂文件，变成产品里的即时体验。',
       subtitle:
-        '一个组件，把 Office、PDF、OFD、CAD、Typst、XMind、压缩包、邮件、代码、媒体与 3D 等复杂文件直接带进浏览器。纯前端、离线优先、按需加载，支持 Vanilla JS、Vue、React、Svelte 与企业私有化部署。',
+        '一个组件，把 Office、PDF、OFD、CAD、Typst、XMind、压缩包、邮件、代码、媒体与 3D 等复杂文件直接带进浏览器。Full 包内置 preset-all，并完整交付离线 Worker、WASM、字体与 vendor 资产。',
       primary: '立即体验',
       secondary: '阅读文档',
       commercial: '了解商业版',
-      proof: ['206 个文件扩展名', '24 条预览链路', '多框架原生组件', 'Apache-2.0 开源']
+      proof: ['206 个文件扩展名', '24 条预览链路', 'Full 完整离线资产', 'Apache-2.0 开源']
     },
     matrixTitle: '覆盖广，不等于粗糙。每条链路都面向真实业务。',
     matrixIntro:
@@ -284,13 +286,13 @@ const copy = {
       '从 OA 审批到工程图纸，从客服工单到 AI 文档工作台，File Viewer 更关注真实文件、复杂网络、私有化部署和用户每天都会遇到的细节。',
     ecosystemTitle: '原生组件接入，统一参数与事件。',
     ecosystemIntro:
-      '一个组件，一行代码，快速集成。Vanilla JS、Vue、React、Svelte、jQuery 与 Vue2 均提供独立接入示例；非 Vite 项目通过 options.preset 稳定注入能力，Vite 项目可注册插件自动发现已安装 preset。',
+      'Full 包直接内置 preset-all，无需再安装或传入 preset。Vite 注册插件并开启 copyAssets:true 后自动发布完整资产；Webpack、Vue CLI 等非 Vite 项目只需执行一次包内 CLI。',
     demoTitle: '在线 Demo，直接验证真实预览体验。',
     demoIntro:
       '打开完整样例矩阵，验证 Word、PDF、PPTX、CAD、Typst、压缩包、图形、代码、媒体、上传预览与文档比对等核心场景。',
     docsTitle: '接入文档，快速参阅关键能力。',
     docsIntro:
-      '从快速开始进入，集中查阅模块化装配、格式矩阵、组件参数、主题水印、搜索定位、打印导出、Docker、Release 与私有化部署。',
+      '从快速开始进入，集中查阅 Full 包、Vite 自动资产、非 Vite 单次复制、完整 web-full dist、格式矩阵、组件参数与私有化部署。',
     commercialTitle: '免费组件与商业版的边界，一眼看清。',
     commercialIntro:
       '开源 File Viewer 负责浏览器原生、多格式、可离线部署的通用预览；商业版来自 Flyfish Office 自研原生文档引擎，专注 Word、Excel、PowerPoint 的高还原、大文件性能、授权交付和优先支持。两者不是二选一：商业版可以作为可替换的 Office 能力接入现有 File Viewer 组件，获得 file-viewer-pro 体验。',
@@ -298,7 +300,7 @@ const copy = {
     supportTitle: '支持 File Viewer 持续维护，也为企业需求保留清晰入口。',
     supportIntro:
       'GitHub Sponsors 支持一次性或持续赞助，国内用户也可使用微信或支付宝。赞助用于开源维护，不影响开源功能；私有化、定制与明确响应时间请使用企业技术支持入口。',
-    releaseTitle: '从 npm 到静态部署，交付方式都准备好了。',
+    releaseTitle: 'v2.1.30 已发布：Full 代码与完整离线资产同版本交付。',
     footer:
       'Apache-2.0 开源。由 Flyfish Dev 持续维护，适合需要可靠浏览器原生文件预览的产品团队。'
   },
@@ -314,14 +316,14 @@ const copy = {
       demo: 'Live Demo'
     },
     hero: {
-      eyebrow: 'Browser-native file preview super component',
+      eyebrow: 'v2.1.30 · Browser-native file preview',
       title: 'Turn complex files into instant product experiences.',
       subtitle:
-        'One component brings Office, PDF, OFD, CAD, Typst, XMind, archives, email, code, media, and 3D assets directly into the browser. Frontend-only, offline-first, and loaded on demand for Vanilla JavaScript, Vue, React, Svelte, and private enterprise deployment.',
+        'One component brings Office, PDF, OFD, CAD, Typst, XMind, archives, email, code, media, and 3D assets into the browser. Full packages include preset-all plus the complete offline Worker, WASM, font, and vendor payload.',
       primary: 'Try the Demo',
       secondary: 'Read the Docs',
       commercial: 'Commercial Edition',
-      proof: ['206 file extensions', '24 preview pipelines', 'Native component packages', 'Apache-2.0 open source']
+      proof: ['206 file extensions', '24 preview pipelines', 'Complete Full assets', 'Apache-2.0 open source']
     },
     matrixTitle: 'Broad coverage, without treating fidelity as optional.',
     matrixIntro:
@@ -332,13 +334,13 @@ const copy = {
       'From approvals to engineering drawings, support tickets, and AI document workflows, File Viewer focuses on real files, private networks, self-hosted delivery, and the details users meet every day.',
     ecosystemTitle: 'Native integrations with one options and event model.',
     ecosystemIntro:
-      'One component, one line of code, fast integration. Vanilla JS, Vue, React, Svelte, jQuery, and Vue 2 each get a dedicated entry path; non-Vite apps use options.preset, while Vite apps can register the plugin to auto-discover installed presets.',
+      'Full packages include preset-all, so there is no separate preset to install or pass. Vite publishes every asset with copyAssets:true; Webpack, Vue CLI, and other builds run the included CLI once.',
     demoTitle: 'Live demo for real preview validation.',
     demoIntro:
       'Open the complete sample matrix to validate Word, PDF, PPTX, CAD, Typst, archives, diagrams, code, media, upload preview, and document comparison flows.',
     docsTitle: 'Integration docs for fast technical reference.',
     docsIntro:
-      'Start from quickstart and jump into modular assembly, format matrix, component options, themes, watermarks, search anchors, print/export, Docker, Release downloads, and self-hosted deployment.',
+      'Start with Full packages, Vite asset publishing, the one-command non-Vite path, complete web-full dist, format coverage, component options, and self-hosted deployment.',
     commercialTitle: 'Open-source component or commercial edition? Make the boundary obvious.',
     commercialIntro:
       'The open-source File Viewer focuses on browser-native, multi-format, offline-ready preview. The commercial edition comes from the Flyfish Office product line and focuses on Word, Excel, and PowerPoint fidelity, large-file performance, licensed delivery, and priority support. They are not mutually exclusive: the commercial engine can replace the Office capability inside the same File Viewer integration to deliver a file-viewer-pro experience.',
@@ -346,7 +348,7 @@ const copy = {
     supportTitle: 'Support sustainable maintenance, with a clear path for enterprise help.',
     supportIntro:
       'GitHub Sponsors supports one-time and recurring contributions, while WeChat and Alipay remain available for domestic supporters. Sponsorship sustains open-source maintenance and does not include an SLA; use enterprise support for private deployment, custom work, or committed response times.',
-    releaseTitle: 'From npm to static deployment, distribution is ready.',
+    releaseTitle: 'v2.1.30 is live: Full code and complete offline assets ship at one version.',
     footer:
       'Apache-2.0 open source. Maintained by Flyfish Dev for product teams that need reliable browser-native file preview.'
   }
@@ -506,13 +508,29 @@ const capabilities = computed<Capability[]>(() =>
         { title: '统一搜索与定位', detail: 'Ctrl/Command + F 调出浮层搜索，命中高亮、上一条/下一条和行级/页级定位可复用。', icon: SearchCheck },
         { title: '高保真打印导出', detail: 'PDF、Word、Markdown、图片等按渲染链路动态启用打印与 HTML 导出，避免只打印当前视口。', icon: Download },
         { title: '主题与水印', detail: 'light、dark、system 可控，文字/图片水印通过 options 统一注入。', icon: PanelTop },
-        { title: '模块化按需装配', detail: 'core、renderer、preset 和生态组件职责分离；options.preset 覆盖所有构建工具，Vite 插件可自动发现已安装 preset，重度用户可用 preset-all 一键获得完整能力。', icon: Boxes }
+        { title: '按需包与 Full 包边界清晰', detail: '轻量包通过 options.preset 自由裁剪；所有 Full 包直接内置 preset-all，并绑定同版本完整静态资产，不需要业务侧再次拼装格式能力。', icon: Boxes }
       ]
     : [
         { title: 'Unified search and anchors', detail: 'Ctrl/Command + F opens focused search with highlights, next/previous navigation, and reusable page/line anchors.', icon: SearchCheck },
         { title: 'High-fidelity print and export', detail: 'PDF, Word, Markdown, images, and other printable renderers expose print and HTML export only when the output is trustworthy.', icon: Download },
         { title: 'Theme and watermark options', detail: 'light, dark, and system themes are controlled by options; text and image watermarks use one contract.', icon: PanelTop },
-        { title: 'Modular on-demand assembly', detail: 'Core, renderer packages, presets, and native component packages keep separate responsibilities; options.preset works with every bundler, the Vite plugin can auto-discover installed presets, and preset-all gives heavy users the full one-step capability set.', icon: Boxes }
+        { title: 'Clear light and Full package boundaries', detail: 'Light packages stay configurable through options.preset. Every Full package includes preset-all and a same-version complete static asset payload, with no extra format assembly.', icon: Boxes }
+      ]
+)
+
+const fullPackageFaqs = computed<Capability[]>(() =>
+  isZh.value
+    ? [
+        { title: 'Full 还要安装 preset-all 吗？', detail: '不需要。Vue、React、React Legacy、Vue 2.7、Vue 2.6、Svelte、jQuery 与 Web Full 均已内置 preset-all，安装对应 Full 包即可获得完整格式注册。', icon: PackageCheck },
+        { title: 'Vite 还要手工复制 assets 吗？', detail: '不需要。注册 @file-viewer/vite-plugin 并设置 copyAssets:true，dev 与 build 会按部署根路径自动提供全部 Worker、WASM、字体和 vendor 资源。', icon: Zap },
+        { title: 'Webpack / Vue CLI 怎么部署？', detail: '安装任一 Full 包后执行一次 npx --no-install file-viewer-copy-assets ./public/file-viewer。CLI 来自该 Full 包并锁定同一版本。', icon: Wrench },
+        { title: 'web-full 还需要 copy 吗？', detail: '不需要。完整部署 @file-viewer/web-full/dist，脚本、renderer 与全部静态资产已经在同一目录树中，可直接用于内网或静态托管。', icon: Cloud }
+      ]
+    : [
+        { title: 'Does Full need a separate preset-all?', detail: 'No. Vue, React, React Legacy, Vue 2.7, Vue 2.6, Svelte, jQuery, and Web Full packages include preset-all and register the complete format set.', icon: PackageCheck },
+        { title: 'Does Vite need a manual asset copy?', detail: 'No. Register @file-viewer/vite-plugin with copyAssets:true. Dev and build then serve every Worker, WASM, font, and vendor asset from the deployment base.', icon: Zap },
+        { title: 'What about Webpack or Vue CLI?', detail: 'After installing any Full package, run npx --no-install file-viewer-copy-assets ./public/file-viewer once. The included CLI is pinned to the same package version.', icon: Wrench },
+        { title: 'Does web-full still need a copy step?', detail: 'No. Deploy @file-viewer/web-full/dist intact. The script, renderers, and complete static payload share one directory tree for intranet or static hosting.', icon: Cloud }
       ]
 )
 
@@ -586,18 +604,19 @@ const quickStartItems = computed<QuickStartItem[]>(() => [
   {
     label: isZh.value ? 'Vanilla JS Full' : 'Vanilla JS Full',
     packageName: '@file-viewer/web-full',
-    install: 'CDN: @file-viewer/web-full',
-    title: isZh.value ? '无需组件，脚本标签即可完整预览' : 'Complete preview from a script tag',
+    install: 'npm install @file-viewer/web-full@2.1.30',
+    title: isZh.value ? '完整部署 dist，零 copy 直接预览' : 'Deploy the complete dist with zero copy steps',
     summary: isZh.value
-      ? 'CDN full 包默认启用完整格式矩阵，也保留命令式 mountViewer，适合传统页面、POC 和低门槛接入。'
-      : 'The CDN full bundle enables the complete matrix by default and keeps an imperative mountViewer API for classic pages and POCs.',
+      ? 'web-full 内置 preset-all；完整 dist 已包含 renderer、Worker、WASM、字体和 vendor，保持目录结构部署即可。'
+      : 'web-full includes preset-all; its complete dist already contains renderers, Workers, WASM, fonts, and vendor assets.',
     language: 'HTML',
     highlightLanguage: 'xml',
     href: `${docsUrl}guide/quickstart-web`,
     tone: 'violet',
     icon: MonitorPlay,
-    code: `<div id="viewer" style="height:720px"></div>
-<script src="https://cdn.jsdelivr.net/npm/@file-viewer/web-full@latest/dist/flyfish-file-viewer-web-full.iife.js"></${'script'}>
+    code: `<!-- Deploy @file-viewer/web-full/dist intact at /file-viewer/. -->
+<div id="viewer" style="height:720px"></div>
+<script src="/file-viewer/flyfish-file-viewer-web-full.iife.js"></${'script'}>
 
 <script>
 const controller = FlyfishFileViewerWebFull.mountViewer(
@@ -623,8 +642,8 @@ controller.zoomIn()
     install: 'npm install @file-viewer/vue3-full',
     title: isZh.value ? 'Vue 3 一步获得完整能力' : 'Vue 3 with complete capability',
     summary: isZh.value
-      ? 'full 包默认启用完整矩阵，仍保持 Vue 插件、组件 props、事件和 ref/controller 的原生体验。'
-      : 'The full package enables the complete matrix while keeping native Vue plugin, props, events, and ref/controller APIs.',
+      ? 'Full 已内置 preset-all，无需另装或传入 preset；完整资产通过 Vite 自动发布或非 Vite CLI 一次复制。'
+      : 'Full includes preset-all with no separate preset option; Vite publishes assets automatically, or the non-Vite CLI copies them once.',
     language: 'Vue SFC',
     highlightLanguage: 'typescript',
     href: `${docsUrl}guide/quickstart-vue3`,
@@ -683,8 +702,8 @@ createApp(App).use(FileViewer).mount('#app')
     install: 'npm install @file-viewer/react-full',
     title: isZh.value ? 'React full 包一行接入' : 'React full package in one line',
     summary: isZh.value
-      ? '默认完整矩阵，同时保留 React 组件、hooks、事件回调和 ref/controller，便于组合权限和业务工具栏。'
-      : 'Complete matrix by default, with React components, hooks, callbacks, and ref/controller APIs for business toolbars.',
+      ? '内置 preset-all 与同版本完整资产，同时保留 React 组件、hooks、事件回调和 ref/controller。'
+      : 'Includes preset-all and the same-version complete asset payload, while keeping components, hooks, callbacks, and ref/controller APIs.',
     language: 'TSX',
     highlightLanguage: 'typescript',
     href: `${docsUrl}guide/quickstart-react`,
@@ -716,8 +735,8 @@ export function Preview() {
     install: 'npm install @file-viewer/svelte-full',
     title: isZh.value ? 'Svelte full 包完整接入' : 'Svelte full package with the complete matrix',
     summary: isZh.value
-      ? 'Svelte 组件独立依赖 core，full 包默认启用完整矩阵，并保留同样的 options、事件、主题、搜索、缩放和打印导出能力。'
-      : 'The Svelte component depends directly on core; the full package enables the complete matrix and keeps the same options, events, themes, search, zoom, print, and export APIs.',
+      ? 'Svelte Full 内置 preset-all 与完整离线资产，并保留统一的 options、事件、主题、搜索、缩放和打印导出能力。'
+      : 'Svelte Full includes preset-all and complete offline assets while keeping the shared options, events, themes, search, zoom, print, and export APIs.',
     language: 'Svelte',
     highlightLanguage: 'xml',
     href: `${docsUrl}guide/quickstart-svelte`,
@@ -739,13 +758,13 @@ ${'<\\/script>'}
 />`
   },
   {
-    label: 'Vue 2',
+    label: 'Vue 2.7 / 2.6',
     packageName: '@file-viewer/vue2.7-full',
     install: 'npm install @file-viewer/vue2.7-full',
     title: isZh.value ? 'Vue 2.7 / 2.6 项目平滑接入' : 'Smooth Vue 2.7 / 2.6 integration',
     summary: isZh.value
-      ? 'Vue legacy 组件保持同样的 props、事件和样式入口，适合存量 Vue2 系统逐步升级预览能力。'
-      : 'Vue legacy packages keep the same props, events, and style entry for existing Vue 2 systems.',
+      ? 'Vue 2.7 与 Vue 2.6 Full 均内置 preset-all、同版本复制 CLI，并保持相同的 props、事件和样式入口。'
+      : 'Vue 2.7 and Vue 2.6 Full both include preset-all, the same-version copy CLI, and the same props, events, and style entry.',
     language: 'Vue 2',
     highlightLanguage: 'javascript',
     href: `${docsUrl}guide/quickstart-vue2`,
@@ -753,6 +772,7 @@ ${'<\\/script>'}
     icon: Layers3,
     code: `${snippetImport("Vue from 'vue'")}
 ${snippetImport("FileViewer from '@file-viewer/vue2.7-full'")}
+// Vue 2.6 projects use @file-viewer/vue2.6-full.
 
 Vue.use(FileViewer)
 
@@ -774,25 +794,22 @@ new Vue({
   },
   {
     label: 'jQuery',
-    packageName: '@file-viewer/jquery',
-    install: 'npm install @file-viewer/jquery @file-viewer/preset-office',
-    title: isZh.value ? '传统页面使用命令式挂载' : 'Imperative mounting for classic pages',
+    packageName: '@file-viewer/jquery-full',
+    install: 'npm install @file-viewer/jquery-full',
+    title: isZh.value ? 'jQuery Full 命令式完整接入' : 'Complete imperative jQuery Full integration',
     summary: isZh.value
-      ? '面向传统多页应用和渐进式改造，保留 controller、事件解绑、销毁和运行时更新能力。'
-      : 'For classic multi-page apps and progressive migration, with controller, event cleanup, destroy, and runtime updates.',
+      ? '内置 preset-all 与同版本完整资产，面向传统多页应用保留 controller、事件解绑、销毁和运行时更新能力。'
+      : 'Includes preset-all and same-version complete assets, with controller, event cleanup, destroy, and runtime updates for classic apps.',
     language: 'JavaScript',
     highlightLanguage: 'javascript',
     href: `${docsUrl}guide/ecosystem#jquery`,
     tone: 'orange',
     icon: Wrench,
-    code: `${snippetImport("{ mountViewer } from '@file-viewer/jquery'")}
-${snippetImport("officePreset from '@file-viewer/preset-office'")}
+    code: `${snippetImport("{ mountViewer } from '@file-viewer/jquery-full'")}
 
 const controller = mountViewer(document.getElementById('viewer'), {
   url: '/files/sheet.xlsx',
   options: {
-    preset: officePreset,
-    rendererMode: 'replace',
     theme: 'light',
     toolbar: { zoom: true }
   },
@@ -807,12 +824,12 @@ controller.load({ url: '/files/contract.pdf' })`
     label: isZh.value ? 'Vite 自动装配' : 'Vite Auto',
     packageName: '@file-viewer/vite-plugin',
     install: isZh.value
-      ? 'npm install @file-viewer/vue3 @file-viewer/preset-office && npm install -D @file-viewer/vite-plugin'
-      : 'npm install @file-viewer/vue3 @file-viewer/preset-office && npm install -D @file-viewer/vite-plugin',
-    title: isZh.value ? '注册一次插件，自动发现已安装 preset' : 'Register once, auto-discover installed presets',
+      ? 'npm install @file-viewer/vue3-full && npm install -D @file-viewer/vite-plugin'
+      : 'npm install @file-viewer/vue3-full && npm install -D @file-viewer/vite-plugin',
+    title: isZh.value ? 'Full + copyAssets:true 自动完成格式与资产' : 'Full + copyAssets:true completes formats and assets',
     summary: isZh.value
-      ? 'Vite 不会仅因安装包而自动运行插件；在 vite.config.ts 注册后，插件会免手写 import 激活已安装 preset。'
-      : 'Vite will not run a plugin just because it is installed; after vite.config.ts registration, installed presets activate without manual imports.',
+      ? 'Full 自带 preset-all；插件在 dev/build 中自动发布全部 Worker、WASM、字体和 vendor，并兼容根路径与子路径部署。'
+      : 'Full brings preset-all; the plugin publishes every Worker, WASM, font, and vendor asset in dev/build for root or subpath deployments.',
     language: 'Vite',
     highlightLanguage: 'typescript',
     href: `${docsUrl}guide/on-demand-renderers`,
@@ -829,31 +846,27 @@ export default defineConfig({
   ]
 })
 
-// Installed @file-viewer/preset-office auto-activates with no preset option.
-// Heavy users can install @file-viewer/preset-all and keep this config.
-// Custom cuts can add formats, scan, chunkStrategy, or inject:false.`
+// @file-viewer/vue3-full already includes preset-all.
+// No preset option and no manual asset copy are required.`
   },
   {
     label: isZh.value ? '离线部署' : 'Offline',
-    packageName: 'file-viewer-copy-assets',
-    install: isZh.value ? '复制 worker / wasm / font / vendor 资产' : 'Copy worker / wasm / font / vendor assets',
-    title: isZh.value ? '企业内网和严格 CSP 场景可自托管' : 'Self-host assets for intranet and strict CSP',
+    packageName: '@file-viewer/*-full',
+    install: isZh.value ? '非 Vite：任一 Full 包自带复制命令' : 'Non-Vite: every Full package includes the copy command',
+    title: isZh.value ? 'Webpack / Vue CLI 只执行一次 CLI' : 'One CLI command for Webpack or Vue CLI',
     summary: isZh.value
-      ? 'PDF、CAD、Typst、Archive、Draw.io、DOCX、表格和 SQLite 等资源都可复制到业务自己的静态目录；Vue full 包默认使用 /file-viewer/ 作为资源根。'
-      : 'PDF, CAD, Typst, Archive, Draw.io, DOCX, spreadsheet, and SQLite assets can live under your own static path; Vue full packages default to /file-viewer/ as the asset root.',
+      ? '命令来自已安装的 Full 包，复制同版本完整资产并写入清单；运行时不依赖公共 CDN。'
+      : 'The command comes with the installed Full package, copies its same-version complete payload, and writes the manifest; runtime stays off public CDNs.',
     language: 'Shell',
     highlightLanguage: 'bash',
     href: `${docsUrl}guide/distribution`,
     tone: 'cyan',
     icon: Boxes,
-    code: `npx --yes file-viewer-copy-assets ./public/file-viewer
+    code: `npx --no-install file-viewer-copy-assets ./public/file-viewer
 
-# Then serve these files from your own domain.
-# Configure paths only when your static prefix is custom:
-# options.typst.compilerWasmUrl
-# options.pdf.workerUrl
-# options.archive.wasmUrl
-# options.drawing.viewerScriptUrl`
+# Serve public/file-viewer from /file-viewer/ on your own domain.
+# Workers, WASM, fonts, vendor files, and the manifest stay aligned
+# with the installed Full package version.`
   }
 ])
 
@@ -2264,6 +2277,27 @@ onBeforeUnmount(() => {
       </div>
     </section>
 
+    <section class="band architecture-section" aria-labelledby="full-delivery-title">
+      <div class="section-heading compact">
+        <p class="section-kicker">v{{ currentReleaseVersion }} Full delivery</p>
+        <h2 id="full-delivery-title">
+          {{ isZh ? 'Full 包现在怎样开箱即用？' : 'What does out-of-the-box Full mean now?' }}
+        </h2>
+        <p>
+          {{ isZh
+            ? '完整格式注册与静态资源交付是同一份契约：preset-all、Worker、WASM、字体、vendor 和资产清单都跟随 Full 包版本。'
+            : 'Complete format registration and static delivery share one contract: preset-all, Workers, WASM, fonts, vendor files, and the asset manifest follow the Full package version.' }}
+        </p>
+      </div>
+      <div class="capability-grid">
+        <article v-for="item in fullPackageFaqs" :key="item.title" class="capability-card">
+          <component :is="item.icon" :size="24" />
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.detail }}</p>
+        </article>
+      </div>
+    </section>
+
     <section id="docs" class="band docs-section" aria-labelledby="docs-title">
       <div class="section-heading compact">
         <p class="section-kicker">Documentation</p>
@@ -2433,9 +2467,9 @@ onBeforeUnmount(() => {
         <h2>{{ currentCopy.releaseTitle }}</h2>
       </div>
       <div class="release-actions">
-        <a :href="releasesUrl" target="_blank" rel="noreferrer">
+        <a :href="currentReleaseUrl" target="_blank" rel="noreferrer">
           <Download :size="19" />
-          <span>Release</span>
+          <span>v{{ currentReleaseVersion }} Release</span>
         </a>
         <a :href="githubUrl" target="_blank" rel="noreferrer">
           <GitHubMark />

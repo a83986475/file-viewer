@@ -8,9 +8,9 @@
 
 Confirm the host container has a stable height and the file has a recognizable extension or explicit `type`.
 
-## A worker or WASM file does not load
+## Does a Full package require a manual asset copy?
 
-Full packages include `preset-all`, but their Worker, WASM, font, and vendor files still have to be published. Without them, only part of the format matrix can work.
+Not with Vite, and not when the complete `web-full/dist/` directory is deployed. Full packages include `preset-all`, but complete format support also requires their matching Worker, WASM, font, and vendor files to be published. Version `2.1.30` gives every Full package one supported delivery path:
 
 - Vite: enable `fileViewerRenderers({ copyAssets: true })`; dev and build publish matching full-package assets under `<deployment-base>/file-viewer/`.
 - Webpack, Vue CLI, and other tools: run the same-version binary included by the full package:
@@ -23,6 +23,8 @@ npx --no-install file-viewer-copy-assets ./public/file-viewer
 - CDN/IIFE: deploying the complete `@file-viewer/web-full/dist/` directory needs no extra copy. An entry-only build can run the included CLI.
 
 Do not install another `preset-all` or asset copier version beside a full package. Then confirm your server returns the correct MIME type for `.wasm`, `.js`, fonts, and JSON manifests. Strict CSP deployments should serve all viewer assets from the same trusted origin.
+
+If a Worker or WASM still fails, inspect its URL: the response must be the real asset, not an SPA HTML fallback with status 200.
 
 ## Why does a full package still say the libarchive Worker did not load?
 

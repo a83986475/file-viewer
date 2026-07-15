@@ -73,6 +73,12 @@ import FileViewer from '@file-viewer/vue2.7-full'
 Vue.use(FileViewer)
 ```
 
+`@file-viewer/vue2.7-full` 和 `@file-viewer/vue2.6-full` 已内置 `preset-all`，不要重复安装或传入。Vite 使用上面的 `copyAssets:true` 后会在 dev/build 自动发布完整同版本资产；Vue CLI、Webpack 4、Rspack、Rollup 等非 Vite 项目运行 Full 包自带的同版本 CLI：
+
+```bash
+npx --no-install file-viewer-copy-assets ./public/file-viewer
+```
+
 如果是 Vue 2.6 项目，把组件包替换为 `@file-viewer/vue2.6` 或 `@file-viewer/vue2.6-full` 即可。需要更强自定义时，再配置 `formats`、`renderers`、`scan:true`、`inject:false` 或 `chunkStrategy:'renderer'`；常规项目保持 `fileViewerRenderers({ copyAssets:true })` 即可。
 
 ## Vue 2.6 + Vue CLI 3 / webpack 4

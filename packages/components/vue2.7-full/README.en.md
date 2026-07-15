@@ -65,7 +65,9 @@ The shared format matrix currently covers 24 preview pipelines and 206 file exte
 
 `@file-viewer/vue2.7-full` already includes `@file-viewer/preset-all` and enables the complete renderer matrix by default. Do not install or pass `preset-office`, `preset-all`, or individual renderers again.
 
-Complete format support also requires the Worker, WASM, font, and vendor assets used by PDF, Office, CAD, Typst, Archive, Draw.io, SQLite, and related pipelines. Lightweight formats and a few compatibility paths may still work without them, but that is not complete full-package support.
+Since 2.1.30, the eight official Full packages using this asset-delivery contract are: `@file-viewer/web-full`, `@file-viewer/vue3-full`, `@file-viewer/vue2.7-full`, `@file-viewer/vue2.6-full`, `@file-viewer/react-full`, `@file-viewer/react-legacy-full`, `@file-viewer/jquery-full`, `@file-viewer/svelte-full`.
+
+Complete format support also requires the Worker, WASM, font, and vendor assets used by PDF, Office, CAD, Typst, Archive, Draw.io, SQLite, and related pipelines. Running `npm install` alone installs the complete renderer code but does not publish those static assets into the application. Lightweight formats and a few compatibility paths may still work without the asset directory, but that is not complete full-package support.
 
 ### Vite: Deploy Complete Assets Automatically
 

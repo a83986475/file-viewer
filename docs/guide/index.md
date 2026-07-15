@@ -41,13 +41,21 @@ The 2.1.0 architecture is modular by default: use minimal renderer imports when 
 
 For pages with uncontrolled global CSS, use the Web Component / IIFE default Shadow DOM isolation or pass `options.styleIsolation:'shadow'` from framework packages. Theme customization should use `--file-viewer-*` tokens and stable `::part()` surfaces.
 
-For heavy users that need everything immediately:
+For heavy users that need everything immediately, use the native Full package. It already includes `preset-all`; do not install or pass another preset:
 
 ```bash
-npm install @file-viewer/vue3 @file-viewer/preset-all
-npm install -D @file-viewer/vite-plugin # optional for Vite
+npm install @file-viewer/vue3-full
+npm install -D @file-viewer/vite-plugin # Vite
 ```
 
 ```ts
 fileViewerRenderers({ copyAssets: true })
 ```
+
+Vite publishes complete assets in both dev and build. Webpack, Vue CLI, Rspack, Rollup, Umi, and other non-Vite projects run the same-version CLI included by the Full package:
+
+```bash
+npx --no-install file-viewer-copy-assets ./public/file-viewer
+```
+
+Script-tag deployments can publish the complete `@file-viewer/web-full/dist/` directory without a copy step.

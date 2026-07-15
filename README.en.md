@@ -7,7 +7,7 @@
 <p align="center"><strong>Uploading a private DOCX or DWG just to preview it is awful.</strong></p>
 
 <p align="center">
-  File Viewer is a browser-native file viewer for private and internal web apps. It previews Office, PDF/OFD, CAD, archives, email, diagrams, 3D, media and data without a mandatory conversion backend. Workers, WASM, fonts and vendor assets can stay on your network.
+  File Viewer is a browser-native file viewer for private and internal web apps. It previews Office, PDF/OFD, CAD, archives, email, diagrams, 3D, media and data without server-side conversion. Workers, WASM, fonts and vendor assets can stay on your network.
 </p>
 
 <p align="center">
@@ -110,6 +110,20 @@ import { FileViewer } from '@file-viewer/vue3-full'
 | Vue 2.7 / 2.6 | `@file-viewer/vue2.7` / `@file-viewer/vue2.6` | matching `-full` package | [Vue 2](https://doc.file-viewer.app/guide/quickstart-vue2) |
 | Svelte | `@file-viewer/svelte` | `@file-viewer/svelte-full` | [Svelte](https://doc.file-viewer.app/guide/quickstart-svelte) |
 | jQuery | `@file-viewer/jquery` | `@file-viewer/jquery-full` | [jQuery](https://doc.file-viewer.app/guide/ecosystem#jquery) |
+
+### Complete Full Package Delivery
+
+The eight official Full packages are `@file-viewer/web-full`, `@file-viewer/vue3-full`, `@file-viewer/vue2.7-full`, `@file-viewer/vue2.6-full`, `@file-viewer/react-full`, `@file-viewer/react-legacy-full`, `@file-viewer/svelte-full`, and `@file-viewer/jquery-full`. They already include `preset-all`; do not install or pass another preset.
+
+Running `npm install` alone installs the complete renderer code, but it does not publish Worker, WASM, font, and vendor assets into your application. Complete format support uses one of these delivery paths:
+
+| Build / delivery path | Complete asset step |
+| --- | --- |
+| Vite | Install `@file-viewer/vite-plugin` and use `fileViewerRenderers({ copyAssets: true })`; dev and build publish the matching assets automatically. |
+| Webpack / Rspack / Rollup / Vue CLI / Umi | Run the same-version CLI included by the Full package: `npx --no-install file-viewer-copy-assets ./public/file-viewer`. |
+| `@file-viewer/web-full` CDN/IIFE or self-hosting | Use the CDN entry directly, or deploy its complete `dist/` directory intact. Copying only the entry IIFE is incomplete. |
+
+The default asset URL is `<deployment-base>/file-viewer/`. Without the complete asset tree, lightweight formats and a few compatibility paths may still work, but the deployment is not full-format complete.
 
 ## Choose By Scenario
 

@@ -23,6 +23,18 @@ Standard component packages are intentionally light. Installing `@file-viewer/vu
 | CDN full trial | `https://cdn.jsdelivr.net/npm/@file-viewer/web-full@latest/dist/flyfish-file-viewer-web-full.iife.js` | No local install, ideal for script-tag validation of the complete matrix |
 | Strict custom cut | `npm i @file-viewer/vue3 @file-viewer/renderer-pdf` | Install one renderer and pass it through `options.renderers` |
 
+## Full Package Asset Contract
+
+Since `2.1.30`, all eight Full packages share one complete delivery contract. They include and enable `preset-all`, but a renderer registry alone is not complete format support: PDF/Office Workers, CAD/Typst/Archive WASM, fonts, Draw.io, SQLite, and other vendor assets must also be published at the matching version.
+
+| Build path | Complete deployment |
+| --- | --- |
+| Vite | Register `fileViewerRenderers({ copyAssets:true })`; the plugin recognizes the installed Full package and serves/copies all assets in both dev and build |
+| Webpack, Vue CLI, Rspack, Rollup, Umi, other bundlers | Run `npx --no-install file-viewer-copy-assets ./public/file-viewer`; the binary is included by the Full package at the same version |
+| Script tag / CDN | Use jsDelivr/unpkg directly or deploy the complete `@file-viewer/web-full/dist/` directory; no copy command is required |
+
+Do not install another `preset-all` or a separately versioned asset copier next to a Full package. All Full packages default to `file-viewer/` under the deployment base; use `setDefaultFullAssetBaseUrl('/your-prefix/')` only when your static directory differs.
+
 `options.preset` is the bundler-neutral assembly path. Webpack, Rspack, Rollup, Umi, classic multi-page apps, micro-frontends, and internal component libraries can import a preset explicitly and pass it to the component:
 
 ```ts
@@ -175,6 +187,8 @@ npm install @file-viewer/jquery
 
 The package exposes a native jQuery integration over the same core options, events, operation guards, search, zoom, print, export, and renderer presets. It does not embed Vue or React.
 
+Use `@file-viewer/jquery-full` for the complete matrix without importing a preset. Vite still uses `copyAssets:true`; non-Vite jQuery builds run the Full package's included `npx --no-install file-viewer-copy-assets ./public/file-viewer` command.
+
 ## Svelte
 
 Use `@file-viewer/svelte` for Svelte applications:
@@ -184,6 +198,8 @@ npm install @file-viewer/svelte
 ```
 
 The Svelte package keeps framework-native props and events while delegating renderer work to `@file-viewer/core` and the selected renderer packages.
+
+Use `@file-viewer/svelte-full` for the complete matrix without importing a preset. SvelteKit/Vite uses `copyAssets:true`; other builds run the Full package's included `npx --no-install file-viewer-copy-assets ./public/file-viewer` command.
 
 ## Core API
 

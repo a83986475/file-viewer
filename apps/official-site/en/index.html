@@ -21,7 +21,7 @@
     />
     <meta
       name="description"
-      content="Flyfish File Viewer is a browser-native, offline-first, self-hosted multi-format file preview component for business systems, covering Office, PDF, OFD, Typst, XMind, CAD, EDA, archives, email, media, code, 3D, and geospatial files."
+      content="Flyfish File Viewer is a browser-native, offline-first multi-format preview component. v2.1.30 Full packages include preset-all and same-version Workers, WASM, fonts, and vendor assets."
     />
     <meta
       name="keywords"
@@ -45,7 +45,7 @@
     <meta property="og:title" content="Flyfish File Viewer - Browser-native multi-format file preview" />
     <meta
       property="og:description"
-      content="Offline-first, self-hosted file preview components for Office, PDF, OFD, Typst, CAD, EDA, archives, email, media, code, 3D, and geospatial files."
+      content="v2.1.30 Full packages include preset-all. Vite publishes every offline asset, non-Vite builds use the included CLI, and complete web-full dist needs no copy step."
     />
     <meta property="og:image" content="https://file-viewer.app/home-hero-premium.webp" />
     <meta property="og:image:secure_url" content="https://file-viewer.app/home-hero-premium.webp" />
@@ -57,7 +57,7 @@
     <meta name="twitter:title" content="Flyfish File Viewer - Browser-native multi-format file preview" />
     <meta
       name="twitter:description"
-      content="Offline-first, self-hosted file preview components for Office, PDF, OFD, Typst, CAD, EDA, archives, email, media, code, 3D, and geospatial files."
+      content="v2.1.30 Full packages include preset-all and same-version Workers, WASM, fonts, and vendor assets."
     />
     <meta name="twitter:image" content="https://file-viewer.app/home-hero-premium.webp" />
     <title>Flyfish File Viewer - Browser-native multi-format file preview</title>
@@ -101,13 +101,18 @@
             "license": "https://www.apache.org/licenses/LICENSE-2.0",
             "codeRepository": "https://github.com/flyfish-dev/file-viewer",
             "downloadUrl": "https://github.com/flyfish-dev/file-viewer/releases",
+            "softwareVersion": "2.1.30",
+            "releaseNotes": "https://github.com/flyfish-dev/file-viewer/releases/tag/v2.1.30",
             "featureList": [
               "Browser-native file preview without server-side conversion",
               "Standard components for Vue, React, Web Component, Svelte, jQuery, and Vanilla JavaScript",
               "lite, office, engineering, and all presets for on-demand assembly",
               "PDF search, zoom, rotation, print, and outline navigation",
               "Office, OFD, CAD, EDA, Typst, XMind, archives, email, code, media, 3D, and geospatial preview",
-              "Local Worker and WASM assets for offline deployment",
+              "Full packages include preset-all with no separate format assembly",
+              "Vite copyAssets:true publishes every Worker, WASM, font, and vendor asset",
+              "Non-Vite Full packages provide a same-version file-viewer-copy-assets CLI",
+              "Complete web-full dist carries every offline asset with no copy step",
               "Self-hosted deployment, Docker images, and GitHub Release distribution"
             ],
             "offers": {
@@ -145,7 +150,23 @@
                 "name": "How should teams choose the light packages, presets, and full packages?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Light component packages keep the shell and core small. Teams add concrete format capabilities with lite, office, engineering, or all presets. Full packages are for one-step integration and include the complete preview capability set by default."
+                  "text": "Light components assemble lite, office, engineering, or all presets on demand. v2.1.30 Full packages include preset-all with no separate preset install or option, and stay aligned with the complete static asset payload."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Do Full packages still require manual Worker, WASM, and font copying?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "In Vite, register @file-viewer/vite-plugin with copyAssets:true and dev/build provide every Worker, WASM, font, and vendor asset automatically. Webpack, Vue CLI, and other non-Vite builds run the included file-viewer-copy-assets CLI once."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Does web-full require an asset copy command?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No. Deploy @file-viewer/web-full/dist intact. It already contains the renderers, Workers, WASM, fonts, vendor files, and manifest for preset-all, ready for static hosting or an offline intranet."
                 }
               }
             ]
@@ -163,11 +184,16 @@
           It supports Office, PDF, OFD, Typst, XMind, CAD, EDA, archives, email, media, code, 3D, geospatial files, and more.
         </p>
         <p>
+          v2.1.30 Full packages include preset-all and the complete same-version offline payload. Vite publishes it with
+          copyAssets:true; non-Vite builds run the included CLI once; complete web-full dist needs no copy step.
+        </p>
+        <p>
           Key links:
           <a href="https://demo.file-viewer.app/">Live demo</a>,
           <a href="https://doc.file-viewer.app/">Documentation</a>,
           <a href="https://github.com/flyfish-dev/file-viewer">GitHub repository</a>,
-          <a href="https://www.npmjs.com/search?q=%40file-viewer">npm packages</a>.
+          <a href="https://www.npmjs.com/search?q=%40file-viewer">npm packages</a>,
+          <a href="https://github.com/flyfish-dev/file-viewer/releases/tag/v2.1.30">v2.1.30 Release</a>.
         </p>
       </section>
     </noscript>
