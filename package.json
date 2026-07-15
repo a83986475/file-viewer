@@ -21,7 +21,7 @@
     "build:presets": "pnpm --filter './packages/presets/**' build",
     "build:thumbnail": "pnpm --filter @file-viewer/thumbnail build",
     "build:components": "pnpm --filter './packages/components/**' build",
-    "build:tools": "pnpm --filter './packages/tools/**' build",
+    "build:tools": "pnpm --filter file-viewer-copy-assets stage-assets && pnpm --filter './packages/tools/**' build",
     "build:examples": "pnpm --filter '@file-viewer/example-*' build",
     "type-check": "pnpm type-check:core && pnpm type-check:renderers && pnpm type-check:presets && pnpm type-check:thumbnail && pnpm type-check:components && pnpm type-check:tools && pnpm --filter @flyfish-group/file-viewer-demo type-check",
     "type-check:core": "pnpm --filter @file-viewer/core type-check",
