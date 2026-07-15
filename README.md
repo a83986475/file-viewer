@@ -23,14 +23,14 @@
   <a href="#quick-start"><strong>Quick Start</strong></a> ·
   <a href="https://doc.file-viewer.app/"><strong>Documentation</strong></a> ·
   <a href="https://doc.file-viewer.app/guide/formats"><strong>Format Matrix</strong></a> ·
-  <a href="https://github.com/flyfish-dev/file-viewer/releases"><strong>GitHub Releases</strong></a> ·
+  <a href="https://github.com/flyfish-dev/file-viewer/releases" aria-label="GitHub Releases"><strong>Releases</strong></a> ·
   <a href="https://github.com/sponsors/wybaby168"><strong>Sponsor</strong></a>
 </p>
 
 <p align="center">
   <a href="https://github.com/flyfish-dev/file-viewer/actions/workflows/public-ci.yml"><img alt="Public CI" src="https://github.com/flyfish-dev/file-viewer/actions/workflows/public-ci.yml/badge.svg?branch=main"></a>
   <a href="https://www.npmjs.com/package/@file-viewer/core"><img alt="npm version" src="https://img.shields.io/npm/v/@file-viewer/core?logo=npm&color=cb3837"></a>
-  <a href="https://www.npmjs.com/package/@file-viewer/core"><img alt="core total downloads" src="https://img.shields.io/npm/dt/@file-viewer/core?logo=npm&label=core%20downloads"></a>
+  <a href="https://www.npmjs.com/package/@file-viewer/core"><img alt="core total downloads" src="https://img.shields.io/npm/dt/@file-viewer/core?logo=npm&label=downloads"></a>
   <a href="https://github.com/flyfish-dev/file-viewer"><img alt="GitHub stars" src="https://img.shields.io/github/stars/flyfish-dev/file-viewer?style=flat&logo=github&logoColor=white&label=stars&color=2563eb"></a>
   <a href="https://hub.docker.com/r/flyfishdev/file-viewer"><img alt="Docker pulls" src="https://img.shields.io/docker/pulls/flyfishdev/file-viewer?logo=docker"></a>
 </p>
