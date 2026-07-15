@@ -1183,6 +1183,11 @@ function prefersChineseEnvironment() {
 }
 
 function resolveInitialLocale(): Locale {
+  const pathLocale = resolveLocaleFromPathname(window.location.pathname)
+  if (pathLocale) {
+    return pathLocale
+  }
+
   const storedLocale = readStoredLocalePreference()
   if (storedLocale) {
     return storedLocale
@@ -1192,7 +1197,7 @@ function resolveInitialLocale(): Locale {
     return 'zh'
   }
 
-  return resolveLocaleFromPathname(window.location.pathname) ?? 'en'
+  return 'en'
 }
 
 function resolveCanonicalForCurrentPath() {
