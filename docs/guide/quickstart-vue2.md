@@ -115,7 +115,8 @@ module.exports = {
       alias: {
         '@file-viewer/core/assets$': resolvePackageFile('@file-viewer/core', 'dist/assets.js'),
         '@file-viewer/core/browser$': resolvePackageFile('@file-viewer/core', 'dist/browser.js'),
-        '@file-viewer/core/headless$': resolvePackageFile('@file-viewer/core', 'dist/headless.js')
+        '@file-viewer/core/headless$': resolvePackageFile('@file-viewer/core', 'dist/headless.js'),
+        '@file-viewer/docx$': resolvePackageFile('@file-viewer/docx', 'dist/docx-preview.mjs')
       },
       extensions: ['.mjs', '.js', '.vue', '.json']
     }
@@ -123,7 +124,7 @@ module.exports = {
 }
 ```
 
-示例还包含两个 webpack 4 兼容补丁：`build/rename-pdfjs-webpack-require.cjs` 会处理 PDF.js legacy `.mjs` 自带 webpack 包装代码，避免和宿主 webpack 4 注入的 `__webpack_require__` 同名冲突；`build/babel-transform-import-meta-url.cjs` 负责让 webpack 4 解析 PPTX worker 模块。`scripts/copy-file-viewer-assets.cjs` 会把 PDF/DOCX/PPTX/Excel 的 worker、CMap、WASM 和字体复制到 `public/file-viewer/`。
+`@file-viewer/docx` 的 alias 必须保留：webpack 4 默认优先选择 UMD `browser` 入口，该文件经过 Babel 转译后会丢失 CommonJS 导出，上传 DOCX 时表现为 `renderAsync is not a function`。示例还包含两个 webpack 4 兼容补丁：`build/rename-pdfjs-webpack-require.cjs` 会处理 PDF.js legacy `.mjs` 自带 webpack 包装代码，避免和宿主 webpack 4 注入的 `__webpack_require__` 同名冲突；`build/babel-transform-import-meta-url.cjs` 负责让 webpack 4 解析 PPTX worker 模块。`scripts/copy-file-viewer-assets.cjs` 会把 PDF/DOCX/PPTX/Excel 的 worker、CMap、WASM 和字体复制到 `public/file-viewer/`。
 
 `npm run serve` 对应的 `.env.normalServe` 使用 `NODE_ENV=production`，是为了避开 Vue CLI 3.1 dev server 对 HMR 客户端的强注入；真实项目可以先用这个模式确认 `preset-office` 构建链可用，再决定是否保留热更新。
 

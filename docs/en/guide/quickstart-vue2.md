@@ -154,7 +154,8 @@ module.exports = {
       alias: {
         '@file-viewer/core/assets$': resolvePackageFile('@file-viewer/core', 'dist/assets.js'),
         '@file-viewer/core/browser$': resolvePackageFile('@file-viewer/core', 'dist/browser.js'),
-        '@file-viewer/core/headless$': resolvePackageFile('@file-viewer/core', 'dist/headless.js')
+        '@file-viewer/core/headless$': resolvePackageFile('@file-viewer/core', 'dist/headless.js'),
+        '@file-viewer/docx$': resolvePackageFile('@file-viewer/docx', 'dist/docx-preview.mjs')
       },
       extensions: ['.mjs', '.js', '.vue', '.json']
     }
@@ -162,7 +163,7 @@ module.exports = {
 }
 ```
 
-The demo also includes two webpack 4 compatibility patches: `build/rename-pdfjs-webpack-require.cjs` renames the bundled PDF.js legacy `.mjs` webpack helper so it does not shadow the host webpack 4 `__webpack_require__`, and `build/babel-transform-import-meta-url.cjs` lets webpack 4 parse the PPTX worker module. The `serve` env files set `NODE_ENV=production` to avoid Vue CLI 3.1 injecting its HMR client into this legacy preview path.
+Keep the `@file-viewer/docx` alias: webpack 4 otherwise prefers the UMD `browser` entry, whose CommonJS exports are lost after Babel transpilation and surface as `renderAsync is not a function` when a DOCX is uploaded. The demo also includes two webpack 4 compatibility patches: `build/rename-pdfjs-webpack-require.cjs` renames the bundled PDF.js legacy `.mjs` webpack helper so it does not shadow the host webpack 4 `__webpack_require__`, and `build/babel-transform-import-meta-url.cjs` lets webpack 4 parse the PPTX worker module. The `serve` env files set `NODE_ENV=production` to avoid Vue CLI 3.1 injecting its HMR client into this legacy preview path.
 
 Then pass the preset and self-hosted asset URLs explicitly:
 

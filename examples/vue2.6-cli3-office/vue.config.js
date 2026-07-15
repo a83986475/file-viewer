@@ -32,7 +32,8 @@ module.exports = {
       alias: {
         '@file-viewer/core/assets$': resolvePackageFile('@file-viewer/core', 'dist/assets.js'),
         '@file-viewer/core/browser$': resolvePackageFile('@file-viewer/core', 'dist/browser.js'),
-        '@file-viewer/core/headless$': resolvePackageFile('@file-viewer/core', 'dist/headless.js')
+        '@file-viewer/core/headless$': resolvePackageFile('@file-viewer/core', 'dist/headless.js'),
+        '@file-viewer/docx$': resolvePackageFile('@file-viewer/docx', 'dist/docx-preview.mjs')
       },
       extensions: ['.mjs', '.js', '.vue', '.json']
     }

@@ -19,6 +19,7 @@ NODE_OPTIONS=--openssl-legacy-provider npm run build
 - `options.preset` 显式传入 `officePreset`，轻量 Vue 2.6 组件不会自动包含 PDF/Office renderer。
 - `vue.config.js` 里对 `@file-viewer/*`、`pdfjs-dist`、`e-virt-table`、`styled-exceljs` 做选择性 Babel 转译。
 - webpack 4 不识别 package `exports` 子路径时，通过 alias 兼容 `@file-viewer/core/assets`、`browser`、`headless`。
+- webpack 4 默认优先读取 `@file-viewer/docx` 的 UMD `browser` 入口；该入口再经过 Babel 转译会丢失 CommonJS 导出，因此示例把包根 alias 到 `dist/docx-preview.mjs`，避免上传 DOCX 时出现 `renderAsync is not a function`。
 - `build/rename-pdfjs-webpack-require.cjs` 处理 PDF.js legacy `.mjs` 自带 webpack 包装代码，避免和宿主 webpack 4 注入的 `__webpack_require__` 同名冲突。
 - PPTX 依赖里有 `import.meta.url` worker 解析，示例使用一个 Babel 小插件让 webpack 4 能解析通过，同时在 `options.presentation.workerUrl` 指向本地 worker。
 - `scripts/copy-file-viewer-assets.cjs` 把 PDF/DOCX/PPTX/Excel worker、CMap、WASM 和标准字体复制到 `public/file-viewer/`，满足离线部署。
